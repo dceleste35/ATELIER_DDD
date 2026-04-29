@@ -1,0 +1,93 @@
+cartographier_acteurs:
+  description: >
+    À partir de la demande métier initiale et des livrables de l'étape 1
+    (notamment "Acteurs du domaine" et "Vision globale"), produire une
+    cartographie détaillée des acteurs impliqués dans le circuit des demandes
+    urgentes de dosage anti-Xa. Distinguer acteurs humains (cliniciens,
+    biologistes, IDE, brancardiers, secrétaires...), acteurs organisationnels
+    (services, unités, laboratoires, astreintes) et acteurs techniques
+    (SIL, SIH, automates, middleware). Préciser pour chaque acteur ses
+    attentes vis-à-vis du circuit et ses objectifs propres.
+  expected_output: >
+    Un document Markdown intitulé "Cartographie des acteurs" contenant pour
+    chaque acteur :
+    - nom et type (humain / organisationnel / technique) ;
+    - rôle dans le circuit ;
+    - attentes vis-à-vis du système ;
+    - objectifs opérationnels ;
+    - moments d'intervention dans le parcours ;
+    - relations avec les autres acteurs.
+    Inclure un tableau récapitulatif en fin de document.
+  output_file: outputs/etape-2/06_cartographie_acteurs.md
+
+formaliser_responsabilites:
+  description: >
+    Pour chaque acteur identifié dans la cartographie, formaliser précisément
+    ses responsabilités dans le circuit, les décisions qu'il prend et les
+    informations qu'il manipule (consulte, produit, transmet, valide).
+    Identifier les zones de responsabilité partagée et les éventuelles zones
+    grises ou non couvertes.
+  expected_output: >
+    Un document Markdown intitulé "Responsabilités des acteurs" contenant :
+    - pour chaque acteur, la liste de ses responsabilités opérationnelles ;
+    - les décisions clés qu'il prend (avec critères de décision si connus) ;
+    - les informations qu'il consulte / produit / transmet ;
+    - les responsabilités partagées entre plusieurs acteurs ;
+    - les zones grises ou responsabilités non attribuées clairement.
+  output_file: outputs/etape-2/07_responsabilites_acteurs.md
+
+formaliser_regles_metier:
+  description: >
+    Extraire et formaliser les règles métier qui encadrent le circuit des
+    demandes urgentes de dosage anti-Xa : conditions de validation,
+    priorités, contraintes réglementaires, exceptions, seuils numériques,
+    droits d'action, enchaînements obligatoires entre étapes. Distinguer
+    règles explicites (exprimées dans le corpus) et règles implicites
+    (déduites du contexte hospitalier et biologique).
+  expected_output: >
+    Un document Markdown intitulé "Règles métier" structuré par catégorie :
+    - règles de validation (qui peut valider quoi, dans quelles conditions) ;
+    - règles de priorité (urgence, ordre de traitement) ;
+    - contraintes réglementaires (accréditation, traçabilité, RGPD) ;
+    - seuils et valeurs critiques ;
+    - règles d'exception et cas particuliers ;
+    - droits d'action par acteur ;
+    - enchaînements obligatoires (préconditions / postconditions).
+    Pour chaque règle : énoncé, source (explicite / implicite), acteur(s)
+    concerné(s), conséquence en cas de non-respect.
+  output_file: outputs/etape-2/08_regles_metier.md
+
+identifier_conflits_objectifs:
+  description: >
+    Analyser les attentes, responsabilités et objectifs des différents
+    acteurs pour identifier les conflits d'objectifs potentiels ou réels
+    (par exemple : rapidité clinique vs qualité pré-analytique, charge IDE
+    vs traçabilité, productivité laboratoire vs sécurité patient).
+    Pour chaque conflit, proposer des pistes d'arbitrage métier sans
+    encore concevoir de solution logicielle.
+  expected_output: >
+    Un document Markdown intitulé "Conflits d'objectifs" contenant :
+    - la liste des conflits identifiés ;
+    - les acteurs impliqués dans chaque conflit ;
+    - les objectifs qui s'opposent ;
+    - les conséquences observables sur le circuit ;
+    - les pistes d'arbitrage métier envisageables ;
+    - les décisions à valider auprès du métier.
+  output_file: outputs/etape-2/09_conflits_objectifs.md
+
+synthetiser_etape_2:
+  description: >
+    Synthétiser l'ensemble des livrables de l'étape 2 (cartographie,
+    responsabilités, règles métier, conflits) en une vision structurée
+    du domaine, exploitable comme socle pour l'étape 3 (modélisation DDD :
+    contextes bornés, agrégats, événements). Mettre en évidence les
+    informations manquantes à clarifier avant la modélisation.
+  expected_output: >
+    Un document Markdown intitulé "Synthèse étape 2 — Structuration du
+    domaine" contenant :
+    - synthèse des acteurs et de leurs interactions clés ;
+    - tableau de bord des règles métier majeures ;
+    - synthèse des conflits d'objectifs et arbitrages proposés ;
+    - liste des points à clarifier auprès du métier ;
+    - éléments prêts à être utilisés en étape 3 (modélisation DDD).
+  output_file: outputs/etape-2/10_synthese_etape2.md

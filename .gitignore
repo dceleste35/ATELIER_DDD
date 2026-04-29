@@ -49,7 +49,6 @@ credentials.json
 # ============================================================
 # Output artifacts (project-specific)
 # ============================================================
-outputs/
 output/
 *.tmp
 *.bak

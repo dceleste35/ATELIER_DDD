@@ -1,3 +1,4 @@
+import argparse
 import os
 from pathlib import Path
 from typing import Any, Dict, List
@@ -15,6 +16,12 @@ INPUT_DIR = DATA_DIR / "input"
 OUTPUT_DIR = BASE_DIR / "outputs"
 
 
+AGENT_KEY_BY_STEP: Dict[int, str] = {
+    1: "domain_understanding_analyst",
+    2: "domain_structuring_analyst",
+}
+
+
 def load_yaml(path: Path) -> Dict[str, Any]:
     if not path.exists():
         raise FileNotFoundError(f"Fichier YAML introuvable : {path}")
@@ -29,10 +36,6 @@ def load_yaml(path: Path) -> Dict[str, Any]:
 
 
 def load_inputs_from_directory(input_dir: Path) -> str:
-    """
-    Lit tous les fichiers texte exploitables du dossier data/input/
-    et les concatène dans un corpus unique.
-    """
     if not input_dir.exists():
         raise FileNotFoundError(f"Dossier d'entrée introuvable : {input_dir}")
 
@@ -75,21 +78,89 @@ CHEMIN : {file.relative_to(BASE_DIR)}
     return "\n\n".join(blocks)
 
 
-def build_task_description(base_description: str, input_text: str) -> str:
+def load_previous_outputs(output_dir: Path, current_step: int) -> str:
+    """
+    Charge les livrables Markdown des étapes strictement antérieures
+    à `current_step` comme contexte. Lit les sous-dossiers `etape-N/`.
+    """
+    if not output_dir.exists():
+        return ""
+
+    blocks: List[str] = []
+
+    for n in range(1, current_step):
+        step_dir = output_dir / f"etape-{n}"
+        if not step_dir.exists():
+            continue
+
+        files = sorted(
+            file for file in step_dir.iterdir()
+            if file.is_file() and file.suffix.lower() == ".md"
+        )
+
+        for file in files:
+            content = file.read_text(encoding="utf-8").strip()
+            if not content:
+                continue
+            blocks.append(
+                f"""
+==============================
+LIVRABLE ÉTAPE {n} : {file.name}
+==============================
+
+{content}
+""".strip()
+            )
+
+    return "\n\n".join(blocks)
+
+
+def build_task_description(
+    base_description: str,
+    input_text: str,
+    previous_outputs: str,
+    step: int,
+) -> str:
+    previous_section = ""
+    if previous_outputs:
+        previous_section = f"""
+
+---
+LIVRABLES DES ÉTAPES PRÉCÉDENTES
+---
+{previous_outputs}
+"""
+
+    step_constraints = {
+        1: (
+            "- Rester strictement dans l'étape 1 : compréhension du domaine métier.\n"
+            "- Ne pas produire de modèle DDD détaillé.\n"
+            "- Ne pas produire de schéma d'architecture technique."
+        ),
+        2: (
+            "- Rester strictement dans l'étape 2 : structuration fine du domaine "
+            "(acteurs, responsabilités, règles métier, conflits d'objectifs).\n"
+            "- S'appuyer sur les livrables de l'étape 1 fournis ci-dessus.\n"
+            "- Ne pas produire de modèle DDD détaillé (entités, agrégats, "
+            "value objects, événements) — c'est l'étape 3.\n"
+            "- Ne pas produire de schéma d'architecture technique."
+        ),
+    }
+
+    constraints = step_constraints.get(step, step_constraints[1])
+
     return f"""
 {base_description}
 
 ---
 CORPUS MÉTIER À ANALYSER
 ---
-{input_text}
+{input_text}{previous_section}
 
 ---
 CONSIGNES GÉNÉRALES
 ---
-- Rester strictement dans l'étape 1 : compréhension du domaine métier.
-- Ne pas produire de modèle DDD détaillé.
-- Ne pas produire de schéma d'architecture technique.
+{constraints}
 - Ne pas inventer d'information clinique absente du corpus.
 - Distinguer explicitement les faits, les hypothèses et les points à clarifier.
 - Identifier les éventuelles contradictions entre les sources.
@@ -103,11 +174,13 @@ def ensure_project_structure() -> None:
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 
-def build_agent(agents_config: Dict[str, Any], llm: LLM) -> Agent:
-    agent_key = "domain_understanding_analyst"
+def build_agent(agents_config: Dict[str, Any], llm: LLM, step: int) -> Agent:
+    agent_key = AGENT_KEY_BY_STEP.get(step)
+    if agent_key is None:
+        raise ValueError(f"Étape non supportée : {step}")
 
     if agent_key not in agents_config:
-        raise KeyError(f"Agent absent dans agents_step1.yaml : {agent_key}")
+        raise KeyError(f"Agent absent dans agents_step{step}.yaml : {agent_key}")
 
     agent_config = agents_config[agent_key]
 
@@ -130,6 +203,8 @@ def build_tasks(
     tasks_config: Dict[str, Any],
     domain_agent: Agent,
     input_text: str,
+    previous_outputs: str,
+    step: int,
 ) -> List[Task]:
     tasks: List[Task] = []
 
@@ -159,6 +234,8 @@ def build_tasks(
             description=build_task_description(
                 task_config["description"],
                 input_text,
+                previous_outputs,
+                step,
             ),
             expected_output=task_config["expected_output"],
             agent=domain_agent,
@@ -168,13 +245,27 @@ def build_tasks(
         tasks.append(task)
 
     if not tasks:
-        raise ValueError("Aucune tâche définie dans tasks_step1.yaml")
+        raise ValueError(f"Aucune tâche définie dans tasks_step{step}.yaml")
 
     return tasks
 
 
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Runner DDD multi-étapes.")
+    parser.add_argument(
+        "--step",
+        type=int,
+        default=int(os.getenv("DDD_STEP", "1")),
+        choices=sorted(AGENT_KEY_BY_STEP.keys()),
+        help="Étape DDD à exécuter (1 = compréhension, 2 = structuration).",
+    )
+    return parser.parse_args()
+
+
 def main() -> None:
     os.chdir(BASE_DIR)
+    args = parse_args()
+    step = args.step
 
     load_dotenv(BASE_DIR / ".env")
 
@@ -188,15 +279,19 @@ def main() -> None:
 
     ensure_project_structure()
 
-    agents_config = load_yaml(CONFIG_DIR / "agents_step1.yaml")
-    tasks_config = load_yaml(CONFIG_DIR / "tasks_step1.yaml")
+    agents_path = CONFIG_DIR / f"agents_step{step}.yaml"
+    tasks_path = CONFIG_DIR / f"tasks_step{step}.yaml"
+
+    agents_config = load_yaml(agents_path)
+    tasks_config = load_yaml(tasks_path)
 
     input_text = load_inputs_from_directory(INPUT_DIR)
+    previous_outputs = load_previous_outputs(OUTPUT_DIR, step) if step > 1 else ""
 
     llm = LLM(model=model_name)
 
-    domain_agent = build_agent(agents_config, llm)
-    tasks = build_tasks(tasks_config, domain_agent, input_text)
+    domain_agent = build_agent(agents_config, llm, step)
+    tasks = build_tasks(tasks_config, domain_agent, input_text, previous_outputs, step)
 
     crew = Crew(
         agents=[domain_agent],
@@ -204,6 +299,11 @@ def main() -> None:
         process=Process.sequential,
         verbose=True,
     )
+
+    print(f"\n=== Étape {step} : {AGENT_KEY_BY_STEP[step]} ===")
+    print(f"Configs : {agents_path.name}, {tasks_path.name}")
+    if previous_outputs:
+        print(f"Contexte étapes précédentes : {OUTPUT_DIR.relative_to(BASE_DIR)}")
 
     result = crew.kickoff()
 
