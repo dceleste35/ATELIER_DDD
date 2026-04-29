@@ -94,22 +94,35 @@ cartographier_interactions:
 
 synthetiser_strategie_sous_domaines:
   description: >
-    Synthétiser le découpage stratégique de l'étape 4 en un document
-    de référence exploitable comme socle pour l'étape 5 (modélisation
-    des bounded contexts) et au-delà. Mettre en évidence où se situe
-    la valeur métier principale, ce qui est cœur stratégique vs
-    support vs commodité, l'organisation cible des équipes et la
-    feuille de route de conception.
+    Synthétiser le découpage stratégique de l'étape 4 sous la forme d'un
+    UNIQUE schéma Mermaid (type `flowchart TD`). Le schéma doit représenter
+    visuellement : tous les sous-domaines identifiés, leur classification
+    stratégique (Core / Supporting / Generic) par couleur, et les interactions
+    principales entre sous-domaines avec des labels d'arêtes décrivant
+    l'information ou la décision échangée. Aucun texte explicatif autour
+    du schéma ; seul le bloc de code Mermaid est attendu.
   expected_output: >
-    Un document Markdown intitulé "Synthèse stratégique du découpage
-    en sous-domaines" contenant :
-    - une carte synthétique des sous-domaines et de leurs interactions ;
-    - le ou les sous-domaines Core qui portent la valeur métier ;
-    - les sous-domaines Supporting nécessaires mais non différenciants ;
-    - les sous-domaines Generic candidats à externalisation ou achat ;
-    - une proposition d'organisation des équipes (alignement
-      sous-domaines ↔ équipes) ;
-    - une priorisation indicative des efforts de conception ;
-    - les zones d'incertitude restantes et les questions à valider
-      avant de passer à l'étape 5 (bounded contexts).
+    Un fichier Markdown contenant EXCLUSIVEMENT un bloc de code Mermaid
+    (```mermaid ... ```), sans aucune phrase, titre ou paragraphe avant
+    ou après. Le contenu Mermaid doit respecter strictement ces règles :
+
+    - Directive : `flowchart TD` (top-down) ou `flowchart LR` (gauche-droite).
+    - Un nœud par sous-domaine, identifié par un id court (ex. `Prescription`,
+      `Prelevement`, `AnalyseAntiXa`...).
+    - Définir 3 classes de style avec `classDef` :
+        * `core` : `fill:#ff6b6b,stroke:#c92a2a,color:#fff,stroke-width:2px`
+        * `supporting` : `fill:#4dabf7,stroke:#1864ab,color:#fff,stroke-width:2px`
+        * `generic` : `fill:#adb5bd,stroke:#495057,color:#fff,stroke-width:1px`
+    - Appliquer la classe à chaque nœud via `class NodeId core|supporting|generic`.
+    - Représenter les interactions par des arêtes orientées avec un label
+      court décrivant l'information ou la décision échangée
+      (ex. `Prescription -->|envoie demande urgente| Prelevement`).
+    - Optionnel mais recommandé : utiliser `subgraph` pour regrouper les
+      sous-domaines par finalité (ex. Cœur clinique, Logistique
+      pré-analytique, Traçabilité).
+    - Inclure une légende sous forme de nœuds isolés étiquetés
+      `Core`, `Supporting`, `Generic` (chacun avec sa classe correspondante).
+
+    Aucune autre sortie n'est acceptée : pas de tableau, pas de texte
+    introductif, pas de commentaire markdown autour du bloc Mermaid.
   output_file: outputs/etape-4/20_synthese_sous_domaines.md
