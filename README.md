@@ -89,7 +89,7 @@ Extensions acceptées : `.md`, `.txt`, `.log`, `.csv`.
 
 - Faites un Fork de ce repository GitHub (bouton **Fork** en haut à droite).
 - Créez, dans votre repository, le secret Codespaces suivant :
-  **`OPENAI_API_KEY`** qui contiendra l'API key de votre compte OpenAI.
+  **`MISTRAL_API_KEY`** qui contiendra l'API key de votre compte Mistral.
 - Cliquez ensuite sur **[Code]** → **Create codespace on main**.
 - Dans le terminal du Codespace :
 
@@ -107,25 +107,14 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-Crée un fichier `.env` à la racine. Le projet supporte plusieurs providers LLM via [LiteLLM](https://docs.litellm.ai/) (intégré à CrewAI) :
-
-**Mistral** (défaut, économique) :
+Crée un fichier `.env` à la racine. Le projet utilise **Mistral** (via [LiteLLM](https://docs.litellm.ai/) intégré à CrewAI) :
 
 ```
-LLM_MODEL=mistral/mistral-small-latest
 MISTRAL_API_KEY=...
+LLM_MODEL=mistral/mistral-small-latest   # optionnel — défaut : mistral-small-latest
 ```
 
-**OpenAI** :
-
-```
-LLM_MODEL=gpt-4o-mini
-OPENAI_API_KEY=sk-...
-```
-
-**Autres providers** (Anthropic, Groq, Ollama...) : définir `LLM_MODEL=provider/model` et la clé API correspondante. Voir [LiteLLM providers](https://docs.litellm.ai/docs/providers).
-
-Si `LLM_MODEL` n'est pas défini, le runner choisit automatiquement Mistral si `MISTRAL_API_KEY` est présent, sinon OpenAI.
+Le modèle peut être changé pour `mistral/mistral-large-latest`, `mistral/mistral-tiny`, etc. Voir [Mistral models](https://docs.mistral.ai/getting-started/models/models_overview/).
 
 ---
 
