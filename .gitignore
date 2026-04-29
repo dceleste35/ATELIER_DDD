@@ -1,0 +1,132 @@
+# ============================================================
+# Python
+# ============================================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg
+*.egg-info/
+.eggs/
+dist/
+build/
+develop-eggs/
+downloads/
+parts/
+sdist/
+wheels/
+share/python-wheels/
+MANIFEST
+pip-log.txt
+pip-delete-this-directory.txt
+
+# ============================================================
+# Virtualenv / env managers
+# ============================================================
+.venv/
+venv/
+env/
+ENV/
+.python-version
+.pyenv/
+Pipfile.lock
+poetry.lock
+uv.lock
+
+# ============================================================
+# Secrets / env files
+# ============================================================
+.env
+.env.*
+!.env.example
+!.env.sample
+*.pem
+*.key
+secrets/
+credentials.json
+
+# ============================================================
+# Output artifacts (project-specific)
+# ============================================================
+outputs/
+output/
+*.tmp
+*.bak
+
+# Keep data/input but ignore generated subdirs if any
+data/output/
+data/cache/
+data/processed/
+
+# ============================================================
+# CrewAI / LLM caches
+# ============================================================
+.crewai/
+crew_memory/
+chroma_db/
+.chroma/
+*.sqlite
+*.sqlite3
+*.db
+
+# ============================================================
+# Logs / monitoring
+# ============================================================
+*.log
+logs/
+*.out
+*.err
+
+# ============================================================
+# Test / lint / type caches
+# ============================================================
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.tox/
+.nox/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+*.cover
+.hypothesis/
+
+# ============================================================
+# Notebooks
+# ============================================================
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# ============================================================
+# IDE / editors
+# ============================================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
+.cursor/
+.aider*
+
+# ============================================================
+# OS
+# ============================================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# ============================================================
+# Misc
+# ============================================================
+node_modules/
+.cache/
+tmp/
+temp/
