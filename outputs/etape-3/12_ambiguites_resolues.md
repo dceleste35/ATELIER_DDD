@@ -1,552 +1,259 @@
-# Ambiguïtés terminologiques résolues
+# **Ambiguïtés terminologiques résolues**
 **Domaine : Circuit des demandes urgentes de dosage anti-Xa**
 
 ---
 
-## Introduction
-
-Ce document identifie et résout les ambiguïtés terminologiques présentes dans le corpus métier. Pour chaque cas, nous précisons :
-- Les termes problématiques et leur type d'ambiguïté
-- Les acteurs concernés et leurs interprétations divergentes
-- Le terme canonique retenu avec sa définition
-- La justification métier de l'arbitrage
-- Les termes à proscrire
-
-Les ambiguïtés non tranchables sans expertise métier sont listées en section "Points à valider auprès du métier".
+## **Introduction**
+Ce document identifie les termes ambigus, synonymes implicites, homonymes, traductions divergentes et expressions floues présents dans le corpus métier. Pour chaque cas, un arbitrage terminologique est proposé avec une justification métier, afin de fixer un **terme canonique unique** dans le langage commun. Les ambiguïtés non tranchables sans expertise métier sont listées en fin de document pour validation.
 
 ---
 
-## 1. Ambiguïtés terminologiques identifiées et résolues
+## **1. Ambiguïtés identifiées et arbitrages proposés**
 
 ---
 
-### **1.1. "Anticoagulant oral direct" vs. "AOD" vs. "anticoagulant direct oral"**
+### **1.1. "Demande urgente" vs. "Urgence clinique" vs. "Urgence vitale"**
 
-| **Problème** | **Type** | **Acteurs concernés et leurs interprétations** |
-|--------------|----------|------------------------------------------------|
-| **Termes problématiques** : "Anticoagulant oral direct", "AOD", "anticoagulant direct oral" | **Synonymie + traduction divergente** | - **Médecins prescripteurs** : Utilisent indifféremment "AOD" ou "anticoagulant oral direct".<br>- **Biologiste** : Préfère "anticoagulant oral direct" pour éviter toute confusion avec les anticoagulants injectables (ex : héparine).<br>- **Techniciens de laboratoire** : Utilisent "AOD" dans les protocoles internes.<br>- **SIL** : Le terme "AOD" est souvent utilisé dans les interfaces techniques. |
+| **Termes problématiques** | Type de problème | Acteurs concernés et interprétations divergentes | Terme canonique retenu | Définition | Justification métier | Termes à proscrire |
+|---------------------------|------------------|--------------------------------------------------|------------------------|-----------|----------------------|--------------------|
+| **Demande urgente** (Étape 1 : 03_concepts_metier_initiaux.md) | **Synonymie implicite** / **Expression floue** | - Médecins prescripteurs : utilisent *"demande urgente"* pour toute demande nécessitant une réponse rapide. <br> - Biologiste : associe *"urgence"* à des critères cliniques stricts (ex : hémorragie). <br> - SIL : traite toutes les demandes urgentes de la même manière, sans distinction de gravité. | **Urgence clinique** | Situation où le délai d’obtention du résultat du dosage anti-Xa est critique pour la prise en charge immédiate du patient (ex : suspicion de surdosage, hémorragie, chirurgie urgente). | - Clarifie la distinction entre une simple priorité et une situation vitale. <br> - Aligne le vocabulaire sur les pratiques cliniques (ex : classification des urgences en médecine). <br> - Évite la confusion avec *"demande prioritaire"* (qui n’implique pas nécessairement une urgence vitale). | *"Demande urgente"*, *"Urgence"* (trop générique) |
+| **Urgence clinique** (Étape 1 : 01_reformulation_du_besoin.md) | **Homonymie partielle** | - Certains acteurs utilisent *"urgence clinique"* pour désigner toute situation nécessitant un dosage rapide, y compris les ajustements thérapeutiques non critiques. | **Urgence vitale** | Sous-catégorie d’**urgence clinique** où le délai de réponse est critique pour la survie du patient (ex : hémorragie intracrânienne, choc hémorragique). | - Permet de hiérarchiser les priorités dans le SIL. <br> - Justifie des délais de réponse plus stricts (<30 min). <br> - Aligné sur les normes de soins urgents (ex : protocoles de réanimation). | *"Urgence absolue"* (trop subjectif) |
+| **Urgence vitale** (Étape 2 : 09_conflits_objectifs.md) | **Expression floue** | - Le corpus mentionne des délais de *"30 minutes"* pour les urgences vitales (Étape 2 : 09_conflits_objectifs.md) et *"1 heure"* pour les urgences standard (Étape 2 : 08_regles_metier.md). <br> - Aucune définition claire des critères pour distinguer une urgence vitale d’une urgence clinique standard. | **Urgence vitale** | Situation où le délai de réponse est critique pour la survie du patient (ex : hémorragie massive, chirurgie en urgence, arrêt cardiaque sous anticoagulant). | - Standardise la classification des urgences. <br> - Permet au SIL de prioriser automatiquement les demandes critiques. <br> - Réduit les risques de sous-estimation des situations vitales. | *"Urgence absolue"*, *"Situation critique"* (trop vague) |
 
-| **Terme canonique retenu** | **Définition** | **Justification métier** | **Termes à proscrire** |
-|----------------------------|----------------|---------------------------|-------------------------|
-| **Anticoagulant oral direct** | Médicament antithrombotique agissant directement sur un facteur de coagulation (ex : apixaban, rivaroxaban, dabigatran, édoxaban) administré par voie orale. | - **Clarté** : Évite toute confusion avec les anticoagulants injectables (héparine, AVK).<br>- **Précision** : Le terme "oral" est essentiel pour distinguer ces molécules des autres anticoagulants.<br>- **Standardisation** : Aligné sur les recommandations de la HAS (Haute Autorité de Santé) et des sociétés savantes (ex : GEHT). | AOD, anticoagulant direct oral |
-
-| **Exemple d'emploi** |
-|----------------------|
-| *"Le patient est sous anticoagulant oral direct (apixaban), il faut vérifier le dosage anti-Xa en urgence."* |
-
-| **Source** |
-|------------|
-| Étape 1 (03_concepts_metier_initiaux.md), Étape 2 (06_cartographie_acteurs.md), Corpus initial (demande_biologiste.md) |
+**Exemple d’emploi validé :**
+> *"Ce patient en réanimation présente une hémorragie intracrânienne sous apixaban : c’est une **urgence vitale** nécessitant un dosage anti-Xa en moins de 30 minutes."*
 
 ---
 
-### **1.2. "Contexte clinique" vs. "situation clinique" vs. "contexte thérapeutique"**
+### **1.2. "Prescription médicale" vs. "Ordonnance" vs. "Demande de dosage"**
 
-| **Problème** | **Type** | **Acteurs concernés et leurs interprétations** |
-|--------------|----------|------------------------------------------------|
-| **Termes problématiques** : "Contexte clinique", "situation clinique", "contexte thérapeutique" | **Synonymie + glissement de sens** | - **Médecins prescripteurs** : Utilisent "situation clinique" pour décrire l'état général du patient.<br>- **Biologiste** : Préfère "contexte clinique" pour insister sur les éléments pertinents pour l'interprétation du dosage anti-Xa (traitement, fonction rénale, heure de la dernière prise).<br>- **Personnel infirmier** : Utilise "contexte thérapeutique" pour désigner les traitements en cours.<br>- **SIL** : Le terme "contexte clinique" est utilisé dans les champs de saisie. |
+| **Termes problématiques** | Type de problème | Acteurs concernés et interprétations divergentes | Terme canonique retenu | Définition | Justification métier | Termes à proscrire |
+|---------------------------|------------------|--------------------------------------------------|------------------------|-----------|----------------------|--------------------|
+| **Prescription médicale** (Étape 1 : 03_concepts_metier_initiaux.md) | **Synonymie implicite** | - Médecins prescripteurs : utilisent *"prescription"* ou *"ordonnance"* indifféremment. <br> - Personnel infirmier : parle de *"demande de dosage"*. <br> - SIL : utilise *"demande"* dans son interface. | **Prescription médicale** | Acte par lequel un médecin prescrit un dosage anti-Xa pour un patient sous anticoagulant oral direct, incluant les informations cliniques nécessaires (traitement, heure de la dernière prise, fonction rénale). | - Aligné sur le vocabulaire réglementaire (Code de la santé publique). <br> - Distingue clairement l’acte médical (prescription) de l’acte de prélèvement (demande). <br> - Évite la confusion avec les *"demandes urgentes"* (qui sont des instances de prescriptions). | *"Ordonnance"*, *"Demande de dosage"* (trop générique) |
+| **Ordonnance** | **Traduction divergente** | - Utilisé par certains médecins pour désigner une prescription écrite. <br> - Risque de confusion avec les ordonnances de sortie (hors contexte d’urgence). | **Prescription médicale** | Voir ci-dessus. | - Le terme *"ordonnance"* est trop large et peut prêter à confusion. <br> - *"Prescription médicale"* est le terme légal et métier précis. | *"Ordonnance"* |
+| **Demande de dosage** | **Synonymie implicite** | - Utilisé par le SIL et certains acteurs pour désigner la prescription. <br> - Risque de confusion avec la *"demande urgente"* (qui est une instance de prescription). | **Prescription médicale** | Voir ci-dessus. | - *"Demande de dosage"* est trop générique et peut inclure des demandes non médicales (ex : relance administrative). <br> - *"Prescription médicale"* insiste sur l’acte médical et la responsabilité du prescripteur. | *"Demande de dosage"*, *"Demande"* |
 
-| **Terme canonique retenu** | **Définition** | **Justification métier** | **Termes à proscrire** |
-|----------------------------|----------------|---------------------------|-------------------------|
-| **Contexte clinique** | Ensemble des informations médicales pertinentes pour interpréter un dosage anti-Xa : traitement en cours (anticoagulant oral direct), fonction rénale, heure de la dernière prise, antécédents thrombotiques ou hémorragiques, et autres éléments influençant l'interprétation (ex : insuffisance hépatique). | - **Précision** : Le terme "clinique" est plus large que "thérapeutique" et inclut tous les éléments nécessaires à l'interprétation.<br>- **Standardisation** : Aligné sur les pratiques des biologistes et des sociétés savantes (ex : SFBC).<br>- **Exhaustivité** : Inclut explicitement la fonction rénale et l'heure de la dernière prise, critiques pour l'interprétation. | Situation clinique, contexte thérapeutique |
-
-| **Exemple d'emploi** |
-|----------------------|
-| *"Le contexte clinique montre une insuffisance rénale aiguë et un traitement par rivaroxaban, ce qui influence l'interprétation du résultat anti-Xa."* |
-
-| **Source** |
-|------------|
-| Étape 1 (03_concepts_metier_initiaux.md), Étape 2 (07_responsabilites_acteurs.md) |
+**Exemple d’emploi validé :**
+> *"Le médecin a saisi une **prescription médicale** pour un dosage anti-Xa urgent, incluant l’heure de la dernière prise de rivaroxaban et la clairance de la créatinine du patient."*
 
 ---
 
-### **1.3. "Prescription médicale" vs. "ordonnance" vs. "demande de dosage"**
+### **1.3. "Échantillon biologique" vs. "Prélèvement" vs. "Tube de prélèvement"**
 
-| **Problème** | **Type** | **Acteurs concernés et leurs interprétations** |
-|--------------|----------|------------------------------------------------|
-| **Termes problématiques** : "Prescription médicale", "ordonnance", "demande de dosage" | **Synonymie + traduction divergente** | - **Médecins prescripteurs** : Utilisent "ordonnance" ou "prescription médicale" indifféremment.<br>- **Personnel infirmier** : Utilise "demande de dosage" pour désigner l'acte de prescription.<br>- **Biologiste** : Préfère "prescription médicale" pour insister sur l'acte médical.<br>- **SIL** : Le terme "demande de dosage" est utilisé dans les interfaces techniques. |
+| **Termes problématiques** | Type de problème | Acteurs concernés et interprétations divergentes | Terme canonique retenu | Définition | Justification métier | Termes à proscrire |
+|---------------------------|------------------|--------------------------------------------------|------------------------|-----------|----------------------|--------------------|
+| **Échantillon biologique** (Étape 1 : 03_concepts_metier_initiaux.md) | **Synonymie implicite** | - Personnel infirmier : utilise *"prélèvement"*. <br> - Biologiste : parle d’*"échantillon"* ou de *"tube"*. <br> - SIL : utilise *"échantillon"* dans ses logs. | **Échantillon biologique** | Matériel biologique (sang total, plasma) prélevé pour réaliser un dosage anti-Xa, conditionné dans un tube spécifique. | - *"Échantillon biologique"* est le terme le plus précis et inclut implicitement le tube. <br> - Évite la confusion avec *"prélèvement"* (qui peut désigner l’acte ou le matériel). <br> - Aligné sur les normes de laboratoire (ex : ISO 15189). | *"Prélèvement"* (trop ambigu) |
+| **Prélèvement** | **Homonymie** | - Peut désigner l’acte de prélever ou le matériel prélevé. <br> - Risque de confusion avec *"prescription"* (ex : *"prélèvement urgent"* vs. *"prescription urgente"*). | **Échantillon biologique** (pour le matériel) <br> **Acte de prélèvement** (pour l’action) | Voir ci-dessus. | - Distingue clairement l’objet (échantillon) de l’action (prélèvement). <br> - Permet de préciser les responsabilités (ex : *"l’IDE réalise l’acte de prélèvement"*). | *"Prélèvement"* (sauf pour désigner l’action) |
+| **Tube de prélèvement** (Étape 2 : 08_regles_metier.md) | **Glissement de sens** | - Certains acteurs utilisent *"tube"* pour désigner l’échantillon entier. <br> - Risque de confusion avec le *"tube citraté"* (type spécifique de tube). | **Tube de prélèvement** | Récipient stérile utilisé pour collecter le sang veineux, conforme aux normes de laboratoire pour le dosage anti-Xa (ex : tube citraté 3,2%, volume minimal requis). | - *"Tube de prélèvement"* est précis et évite les ambiguïtés. <br> - Permet de distinguer le contenant (tube) du contenu (échantillon). <br> - Aligné sur les normes pré-analytiques (ex : CLSI GP41). | *"Tube"* (sauf dans *"tube de prélèvement"*) |
 
-| **Terme canonique retenu** | **Définition** | **Justification métier** | **Termes à proscrire** |
-|----------------------------|----------------|---------------------------|-------------------------|
-| **Prescription médicale** | Acte par lequel un médecin ordonne un dosage anti-Xa pour un patient, incluant les informations cliniques nécessaires (traitement en cours, fonction rénale, heure de la dernière prise). | - **Précision** : Insiste sur l'acte médical et l'inclusion des informations cliniques.<br>- **Standardisation** : Aligné sur les pratiques des médecins et des sociétés savantes (ex : CNOM).<br>- **Exhaustivité** : Inclut explicitement les informations nécessaires à l'analyse. | Ordonnance, demande de dosage, prescription thérapeutique |
-
-| **Exemple d'emploi** |
-|----------------------|
-| *"La prescription médicale pour un dosage anti-Xa urgent a été transmise aux infirmiers du service de réanimation, incluant le traitement par apixaban et une fonction rénale à 30 mL/min."* |
-
-| **Source** |
-|------------|
-| Étape 1 (03_concepts_metier_initiaux.md), Étape 2 (09_conflits_objectifs.md) |
+**Exemple d’emploi validé :**
+> *"L’IDE a réalisé l’**acte de prélèvement** et a transmis l’**échantillon biologique** (tube citraté 3,2%) au laboratoire pour dosage anti-Xa."*
 
 ---
-### **1.4. "Échantillon biologique" vs. "prélèvement" vs. "tube sanguin"**
 
-| **Problème** | **Type** | **Acteurs concernés et leurs interprétations** |
-|--------------|----------|------------------------------------------------|
-| **Termes problématiques** : "Échantillon biologique", "prélèvement", "tube sanguin" | **Synonymie + homonymie** | - **Personnel infirmier** : Utilise "prélèvement" pour désigner l'acte de collecte et "tube sanguin" pour le contenant.<br>- **Techniciens de laboratoire** : Utilisent "échantillon biologique" pour désigner le matériel analysé.<br>- **Biologiste** : Préfère "échantillon biologique" pour insister sur la qualité et la conformité.<br>- **SIL** : Le terme "échantillon" est utilisé dans les interfaces techniques. |
+### **1.4. "Contexte clinique" vs. "Situation clinique" vs. "Contexte thérapeutique"**
 
-| **Terme canonique retenu** | **Définition** | **Justification métier** | **Termes à proscrire** |
-|----------------------------|----------------|---------------------------|-------------------------|
-| **Échantillon biologique** | Matériel biologique (sang total ou plasma) prélevé pour réaliser un dosage anti-Xa. Doit être conforme aux normes de prélèvement (type de tube, volume, étiquetage, délai de transport). | - **Précision** : Inclut explicitement le type de matériel (sang total ou plasma) et les exigences de conformité.<br>- **Standardisation** : Aligné sur les pratiques des techniciens de laboratoire et des sociétés savantes (ex : SFBC).<br>- **Exhaustivité** : Couvre à la fois l'acte de prélèvement et le contenant. | Prélèvement, tube sanguin, tube à prélèvement |
+| **Termes problématiques** | Type de problème | Acteurs concernés et interprétations divergentes | Terme canonique retenu | Définition | Justification métier | Termes à proscrire |
+|---------------------------|------------------|--------------------------------------------------|------------------------|-----------|----------------------|--------------------|
+| **Contexte clinique** (Étape 1 : 03_concepts_metier_initiaux.md) | **Synonymie implicite** | - Biologiste : utilise *"contexte clinique"* pour désigner l’ensemble des données médicales pertinentes. <br> - Médecins prescripteurs : parlent de *"situation clinique"*. <br> - SIL : utilise *"contexte thérapeutique"* dans ses champs de saisie. | **Contexte clinique** | Ensemble des éléments médicaux pertinents pour interpréter un dosage anti-Xa : traitement en cours, heure de la dernière prise, fonction rénale, antécédents thrombotiques ou hémorragiques, signes cliniques actuels. | - *"Contexte clinique"* est le terme le plus complet et inclut le traitement (aspect thérapeutique). <br> - Évite la confusion avec *"contexte thérapeutique"* (trop restrictif). <br> - Aligné sur les pratiques d’interprétation biologique. | *"Situation clinique"*, *"Contexte thérapeutique"* |
+| **Situation clinique** | **Traduction divergente** | - Utilisé par certains médecins pour désigner l’état actuel du patient. <br> - Risque de confusion avec *"urgence clinique"*. | **Contexte clinique** | Voir ci-dessus. | - *"Situation clinique"* est trop vague et peut exclure des éléments clés (ex : traitement). <br> - *"Contexte clinique"* est le terme standard en biologie médicale. | *"Situation clinique"* |
+| **Contexte thérapeutique** | **Expression floue** | - Utilisé par le SIL pour désigner uniquement le traitement en cours. <br> - Risque d’exclure d’autres éléments clés (ex : fonction rénale, antécédents). | **Contexte clinique** | Voir ci-dessus. | - *"Contexte thérapeutique"* est trop restrictif et peut conduire à des interprétations erronées. <br> - *"Contexte clinique"* est plus large et inclut tous les éléments nécessaires. | *"Contexte thérapeutique"* |
 
-| **Exemple d'emploi** |
-|----------------------|
-| *"L'échantillon biologique a été prélevé dans un tube citrate 3.2% et transporté au laboratoire en moins de 30 minutes pour garantir la fiabilité du dosage anti-Xa."* |
-
-| **Source** |
-|------------|
-| Étape 1 (03_concepts_metier_initiaux.md), Étape 2 (07_responsabilites_acteurs.md) |
+**Exemple d’emploi validé :**
+> *"L’interprétation du **dosage anti-Xa** doit intégrer le **contexte clinique** du patient, incluant son traitement par apixaban, sa fonction rénale (DFG à 30 mL/min) et ses antécédents de saignement."*
 
 ---
-### **1.5. "Conformité de l'échantillon" vs. "qualité de l'échantillon"**
 
-| **Problème** | **Type** | **Acteurs concernés et leurs interprétations** |
-|--------------|----------|------------------------------------------------|
-| **Termes problématiques** : "Conformité de l'échantillon", "qualité de l'échantillon" | **Synonymie + glissement de sens** | - **Biologiste** : Utilise "conformité de l'échantillon" pour désigner le respect des normes de prélèvement (type de tube, volume, étiquetage).<br>- **Techniciens de laboratoire** : Utilisent "qualité de l'échantillon" pour désigner l'intégrité du matériel analysé.<br>- **Personnel infirmier** : Utilise les deux termes de manière interchangeable. |
+### **1.5. "Traçabilité" vs. "Documentation" vs. "Historique"**
 
-| **Terme canonique retenu** | **Définition** | **Justification métier** | **Termes à proscrire** |
-|----------------------------|----------------|---------------------------|-------------------------|
-| **Conformité de l'échantillon** | Respect des normes de prélèvement (type de tube, volume, étiquetage, délai de transport) pour garantir la fiabilité du dosage anti-Xa. | - **Précision** : Insiste sur le respect des normes, qui est une condition préalable à la qualité de l'analyse.<br>- **Standardisation** : Aligné sur les pratiques des biologistes et des sociétés savantes (ex : SFBC).<br>- **Exhaustivité** : Couvre tous les aspects critiques pour la fiabilité de l'analyse. | Qualité de l'échantillon, échantillon conforme |
+| **Termes problématiques** | Type de problème | Acteurs concernés et interprétations divergentes | Terme canonique retenu | Définition | Justification métier | Termes à proscrire |
+|---------------------------|------------------|--------------------------------------------------|------------------------|-----------|----------------------|--------------------|
+| **Traçabilité** (Étape 1 : 03_concepts_metier_initiaux.md) | **Synonymie implicite** | - SIL : utilise *"traçabilité"* pour désigner l’enregistrement systématique des étapes. <br> - Biologiste : parle de *"documentation"*. <br> - Techniciens de laboratoire : utilisent *"historique"*. | **Traçabilité** | Capacité à suivre et enregistrer toutes les étapes du circuit d’une demande de dosage anti-Xa : prescription, prélèvement, transport, analyse, transmission des résultats. | - *"Traçabilité"* est le terme réglementaire et métier standard (ex : ISO 15189, RGPD). <br> - Inclut implicitement la *"documentation"* et l’*"historique"*. <br> - Évite la confusion avec *"archivage"* (qui est une sous-partie de la traçabilité). | *"Documentation"*, *"Historique"* (trop restrictifs) |
+| **Documentation** | **Traduction divergente** | - Utilisé pour désigner l’enregistrement des étapes. <br> - Risque de confusion avec la *"documentation médicale"* (dossier patient). | **Traçabilité** | Voir ci-dessus. | - *"Documentation"* est trop générique et peut inclure des documents non traçables (ex : notes manuscrites non enregistrées dans le SIL). <br> - *"Traçabilité"* insiste sur l’enregistrement systématique et horodaté. | *"Documentation"* (sauf dans *"traçabilité documentaire"*) |
+| **Historique** | **Expression floue** | - Utilisé pour désigner l’ensemble des enregistrements passés. <br> - Risque de confusion avec l’*"historique médical"* du patient. | **Traçabilité** | Voir ci-dessus. | - *"Historique"* est trop vague et peut inclure des données non pertinentes. <br> - *"Traçabilité"* est le terme précis pour le circuit des demandes. | *"Historique"* |
 
-| **Exemple d'emploi** |
-|----------------------|
-| *"L'échantillon n'est pas conforme : le tube n'est pas un citrate 3.2%, il doit être rejeté et un nouveau prélèvement doit être effectué."* |
-
-| **Source** |
-|------------|
-| Étape 1 (04_contraintes_et_risques.md), Étape 2 (08_regles_metier.md) |
+**Exemple d’emploi validé :**
+> *"Le SIL doit assurer la **traçabilité** de chaque demande de dosage anti-Xa, depuis la prescription jusqu’à la transmission des résultats, avec horodatage et identifiants uniques."*
 
 ---
-### **1.6. "Dosage anti-Xa" vs. "mesure anti-Xa" vs. "test anti-Xa"**
 
-| **Problème** | **Type** | **Acteurs concernés et leurs interprétations** |
-|--------------|----------|------------------------------------------------|
-| **Termes problématiques** : "Dosage anti-Xa", "mesure anti-Xa", "test anti-Xa" | **Synonymie + traduction divergente** | - **Biologiste** : Utilise "dosage anti-Xa" pour désigner l'analyse biologique.<br>- **Techniciens de laboratoire** : Utilisent "mesure anti-Xa" dans les protocoles techniques.<br>- **Médecins prescripteurs** : Utilisent "test anti-Xa" dans les prescriptions.<br>- **SIL** : Le terme "dosage" est utilisé dans les interfaces. |
+### **1.6. "Délai de réponse" vs. "Temps de rendu" vs. "Délai d’analyse"**
 
-| **Terme canonique retenu** | **Définition** | **Justification métier** | **Termes à proscrire** |
-|----------------------------|----------------|---------------------------|-------------------------|
-| **Dosage anti-Xa** | Mesure de l'activité inhibitrice des anticoagulants oraux directs sur le facteur Xa de la coagulation, exprimée en UI/mL ou ng/mL selon l'anticoagulant. | - **Précision** : Le terme "dosage" est standard dans le domaine biologique et médical.<br>- **Standardisation** : Aligné sur les pratiques des biologistes et des sociétés savantes (ex : SFBC).<br>- **Clarté** : Évite toute confusion avec d'autres types de tests (ex : dosage de la créatinine). | Mesure anti-Xa, test anti-Xa, activité anti-Xa |
+| **Termes problématiques** | Type de problème | Acteurs concernés et interprétations divergentes | Terme canonique retenu | Définition | Justification métier | Termes à proscrire |
+|---------------------------|------------------|--------------------------------------------------|------------------------|-----------|----------------------|--------------------|
+| **Délai de réponse** (Étape 2 : 08_regles_metier.md) | **Synonymie implicite** | - Médecins prescripteurs : utilisent *"délai de réponse"* pour désigner le temps entre la demande et la réception des résultats. <br> - Biologiste : parle de *"temps de rendu"*. <br> - SIL : utilise *"délai d’analyse"*. | **Délai de réponse** | Temps maximal autorisé entre la réception de la demande de dosage anti-Xa par le laboratoire et la transmission des résultats au prescripteur. | - *"Délai de réponse"* est le terme le plus clair et inclut implicitement le *"temps de rendu"* et le *"délai d’analyse"*. <br> - Évite la confusion avec *"délai de transport"* (qui est un sous-ensemble du délai de réponse). <br> - Aligné sur les attentes des prescripteurs (ex : *"nous avons besoin d’une réponse rapide"*). | *"Temps de rendu"*, *"Délai d’analyse"* |
+| **Temps de rendu** | **Traduction divergente** | - Utilisé pour désigner le temps nécessaire pour obtenir les résultats. <br> - Risque de confusion avec *"délai de transport"*. | **Délai de réponse** | Voir ci-dessus. | - *"Temps de rendu"* est trop restrictif et peut exclure le délai de transport. <br> - *"Délai de réponse"* est plus complet. | *"Temps de rendu"* |
+| **Délai d’analyse** | **Expression floue** | - Utilisé pour désigner le temps passé par le laboratoire à analyser l’échantillon. <br> - Risque d’exclure le délai de transport et de transmission. | **Délai de réponse** | Voir ci-dessus. | - *"Délai d’analyse"* est trop restrictif et ne reflète pas la réalité du circuit (qui inclut le transport et la transmission). <br> - *"Délai de réponse"* est le terme global. | *"Délai d’analyse"* |
 
-| **Exemple d'emploi** |
-|----------------------|
-| *"Le dosage anti-Xa du patient est à 0,5 UI/mL, ce qui correspond à une activité thérapeutique pour l'apixaban."* |
-
-| **Source** |
-|------------|
-| Étape 1 (03_concepts_metier_initiaux.md), Corpus initial (demande_biologiste.md) |
+**Exemple d’emploi validé :**
+> *"Pour les **urgences vitales**, le **délai de réponse** ne doit pas excéder 30 minutes, incluant le transport et l’analyse de l’échantillon."*
 
 ---
-### **1.7. "Résultat du dosage anti-Xa" vs. "valeur anti-Xa"**
+### **1.7. "Information clinique" vs. "Données patient" vs. "Contexte thérapeutique"**
 
-| **Problème** | **Type** | **Acteurs concernés et leurs interprétations** |
-|--------------|----------|------------------------------------------------|
-| **Termes problématiques** : "Résultat du dosage anti-Xa", "valeur anti-Xa" | **Synonymie** | - **Biologiste** : Utilise "résultat du dosage anti-Xa" pour désigner la valeur numérique ou qualitative issue de l'analyse.<br>- **Médecins prescripteurs** : Utilisent "valeur anti-Xa" dans les échanges cliniques.<br>- **SIL** : Le terme "résultat" est utilisé dans les interfaces techniques. |
+| **Termes problématiques** | Type de problème | Acteurs concernés et interprétations divergentes | Terme canonique retenu | Définition | Justification métier | Termes à proscrire |
+|---------------------------|------------------|--------------------------------------------------|------------------------|-----------|----------------------|--------------------|
+| **Information clinique** (Étape 1 : 04_contraintes_et_risques.md) | **Synonymie implicite** | - Médecins prescripteurs : utilisent *"données patient"* ou *"contexte thérapeutique"*. <br> - SIL : utilise *"information clinique"* dans ses champs de saisie. | **Information clinique** | Donnée médicale essentielle transmise avec la demande de dosage anti-Xa : traitement en cours, heure de la dernière prise, fonction rénale, antécédents, signes cliniques. | - *"Information clinique"* est le terme le plus précis et inclut tous les éléments nécessaires à l’interprétation. <br> - Évite la confusion avec *"données patient"* (trop large) ou *"contexte thérapeutique"* (trop restrictif). <br> - Aligné sur les normes de laboratoire (ex : ISO 15189). | *"Données patient"*, *"Contexte thérapeutique"* |
+| **Données patient** | **Traduction divergente** | - Utilisé pour désigner l’ensemble des informations du dossier médical. <br> - Risque d’inclure des données non pertinentes pour le dosage anti-Xa (ex : antécédents familiaux). | **Information clinique** | Voir ci-dessus. | - *"Données patient"* est trop large et peut inclure des informations inutiles. <br> - *"Information clinique"* est ciblé sur les éléments nécessaires au dosage. | *"Données patient"* |
+| **Contexte thérapeutique** | **Expression floue** | - Utilisé pour désigner uniquement le traitement en cours. <br> - Risque d’exclure d’autres éléments clés (ex : fonction rénale). | **Information clinique** | Voir ci-dessus. | - *"Contexte thérapeutique"* est trop restrictif. <br> - *"Information clinique"* est plus complet. | *"Contexte thérapeutique"* |
 
-| **Terme canonique retenu** | **Définition** | **Justification métier** | **Termes à proscrire** |
-|----------------------------|----------------|---------------------------|-------------------------|
-| **Résultat du dosage anti-Xa** | Valeur numérique ou qualitative issue de l'analyse biologique, interprétée par le biologiste en fonction du contexte clinique. | - **Précision** : Insiste sur le fait que le résultat est issu d'un dosage et doit être interprété.<br>- **Standardisation** : Aligné sur les pratiques des biologistes et des sociétés savantes (ex : SFBC).<br>- **Exhaustivité** : Couvre à la fois la valeur numérique et son interprétation. | Valeur anti-Xa, résultat anti-Xa |
-
-| **Exemple d'emploi** |
-|----------------------|
-| *"Le résultat du dosage anti-Xa est de 0,3 UI/mL, ce qui indique une sous-anticoagulation pour l'apixaban. Une adaptation du traitement est nécessaire."* |
-
-| **Source** |
-|------------|
-| Étape 1 (03_concepts_metier_initiaux.md), Étape 2 (07_responsabilites_acteurs.md) |
+**Exemple d’emploi validé :**
+> *"La **prescription médicale** doit inclure les **informations cliniques** obligatoires : nom de l’anticoagulant, dose, heure de la dernière prise, clairance de la créatinine et motif de la demande."*
 
 ---
-### **1.8. "Traçabilité" vs. "suivi" vs. "historique"**
+### **1.8. "Circuit informatisé" vs. "Workflow numérique" vs. "Système sécurisé"**
 
-| **Problème** | **Type** | **Acteurs concernés et leurs interprétations** |
-|--------------|----------|------------------------------------------------|
-| **Termes problématiques** : "Traçabilité", "suivi", "historique" | **Synonymie + traduction divergente** | - **Biologiste** : Utilise "traçabilité" pour désigner l'enregistrement systématique de chaque étape du circuit.<br>- **Techniciens de laboratoire** : Utilisent "suivi" pour désigner le suivi des échantillons dans le SIL.<br>- **SIL** : Le terme "traçabilité" est utilisé dans les interfaces techniques.<br>- **Médecins prescripteurs** : Utilisent "historique" pour désigner l'historique des dosages. |
+| **Termes problématiques** | Type de problème | Acteurs concernés et interprétations divergentes | Terme canonique retenu | Définition | Justification métier | Termes à proscrire |
+|---------------------------|------------------|--------------------------------------------------|------------------------|-----------|----------------------|--------------------|
+| **Circuit informatisé** (Étape 1 : 03_concepts_metier_initiaux.md) | **Synonymie implicite** | - Biologiste : utilise *"circuit informatisé"* pour désigner le processus numérique. <br> - SIL : parle de *"workflow numérique"*. <br> - Médecins prescripteurs : utilisent *"système sécurisé"*. | **Circuit informatisé** | Processus numérique sécurisé et tracé, géré par le SIL, pour la gestion des demandes urgentes de dosage anti-Xa, incluant la priorisation et la transmission des résultats. | - *"Circuit informatisé"* est le terme le plus complet et inclut la sécurité, la traçabilité et la priorisation. <br> - Évite la confusion avec *"workflow numérique"* (trop technique) ou *"système sécurisé"* (trop vague). <br> - Aligné sur les attentes des biologistes (ex : *"nous avons besoin d’un circuit informatisé pour gérer les urgences"*). | *"Workflow numérique"*, *"Système sécurisé"* |
+| **Workflow numérique** | **Traduction divergente** | - Utilisé par les techniciens pour désigner la séquence des étapes dans le SIL. <br> - Risque de confusion avec les processus manuels. | **Circuit informatisé** | Voir ci-dessus. | - *"Workflow numérique"* est trop technique et peut exclure des aspects clés (ex : sécurité, traçabilité). <br> - *"Circuit informatisé"* est plus global. | *"Workflow numérique"* |
+| **Système sécurisé** | **Expression floue** | - Utilisé pour désigner la protection des données. <br> - Risque d’exclure la traçabilité et la priorisation. | **Circuit informatisé** | Voir ci-dessus. | - *"Système sécurisé"* est trop restrictif et ne reflète pas la complexité du processus. <br> - *"Circuit informatisé"* est plus complet. | *"Système sécurisé"* |
 
-| **Terme canonique retenu** | **Définition** | **Justification métier** | **Termes à proscrire** |
-|----------------------------|----------------|---------------------------|-------------------------|
-| **Traçabilité** | Capacité à suivre et documenter chaque étape du circuit des demandes urgentes de dosage anti-Xa : de la prescription au résultat, en passant par le prélèvement, le transport et l'analyse. | - **Précision** : Insiste sur l'enregistrement systématique et complet de chaque étape.<br>- **Standardisation** : Aligné sur les pratiques des biologistes et des sociétés savantes (ex : SFBC, HAS).<br>- **Exhaustivité** : Couvre tous les aspects critiques pour la sécurité et la conformité réglementaire. | Suivi, historique, documentation |
-
-| **Exemple d'emploi** |
-|----------------------|
-| *"La traçabilité du dosage anti-Xa doit inclure l'identité du patient, l'heure de prélèvement, le type de tube utilisé, l'heure de réception au laboratoire, et l'heure de transmission du résultat."* |
-
-| **Source** |
-|------------|
-| Étape 1 (03_concepts_metier_initiaux.md), Étape 2 (08_regles_metier.md) |
+**Exemple d’emploi validé :**
+> *"Le **circuit informatisé** doit prioriser automatiquement les **demandes urgentes**, assurer la **traçabilité** de chaque étape et transmettre les résultats en temps réel aux prescripteurs."*
 
 ---
-### **1.9. "Délai critique" vs. "délai d'urgence" vs. "délai maximal"**
+### **1.9. "Rejet d’échantillon" vs. "Refus d’analyse" vs. "Échantillon non conforme"**
 
-| **Problème** | **Type** | **Acteurs concernés et leurs interprétations** |
-|--------------|----------|------------------------------------------------|
-| **Termes problématiques** : "Délai critique", "délai d'urgence", "délai maximal" | **Synonymie + traduction divergente** | - **Médecins prescripteurs** : Utilisent "délai d'urgence" pour désigner le temps maximal acceptable pour un dosage urgent.<br>- **Biologiste** : Utilise "délai critique" pour insister sur l'impact sur la sécurité du patient.<br>- **SIL** : Le terme "délai maximal" est utilisé dans les interfaces techniques. |
+| **Termes problématiques** | Type de problème | Acteurs concernés et interprétations divergentes | Terme canonique retenu | Définition | Justification métier | Termes à proscrire |
+|---------------------------|------------------|--------------------------------------------------|------------------------|-----------|----------------------|--------------------|
+| **Rejet d’échantillon** (Étape 2 : 08_regles_metier.md) | **Synonymie implicite** | - Biologiste : utilise *"rejet d’échantillon"*. <br> - Techniciens de laboratoire : parlent de *"refus d’analyse"*. <br> - SIL : utilise *"échantillon non conforme"*. | **Rejet d’échantillon** | Décision de ne pas analyser un échantillon biologique en raison de sa non-conformité (ex : tube inadapté, volume insuffisant, étiquetage incorrect, délai de transport dépassé). | - *"Rejet d’échantillon"* est le terme le plus clair et inclut toutes les raisons de rejet. <br> - Évite la confusion avec *"refus d’analyse"* (qui peut inclure des rejets pour d’autres raisons, ex : erreur technique). <br> - Aligné sur les pratiques de laboratoire (ex : *"l’échantillon a été rejeté pour non-conformité"*). | *"Refus d’analyse"*, *"Échantillon non conforme"* |
+| **Refus d’analyse** | **Traduction divergente** | - Utilisé pour désigner le rejet pour non-conformité ou pour d’autres raisons (ex : erreur technique). <br> - Risque de confusion avec le *"rejet d’échantillon"*. | **Rejet d’échantillon** | Voir ci-dessus. | - *"Refus d’analyse"* est trop large et peut inclure des rejets non liés à la conformité. <br> - *"Rejet d’échantillon"* est plus précis. | *"Refus d’analyse"* |
+| **Échantillon non conforme** | **Expression floue** | - Utilisé pour désigner un échantillon rejeté. <br> - Risque de confusion avec les échantillons simplement *"non optimaux"* (qui peuvent être analysés avec une mention). | **Rejet d’échantillon** | Voir ci-dessus. | - *"Échantillon non conforme"* est trop vague et peut inclure des cas où l’analyse est possible avec une réserve. <br> - *"Rejet d’échantillon"* est clair et définitif. | *"Échantillon non conforme"* |
 
-| **Terme canonique retenu** | **Définition** | **Justification métier** | **Termes à proscrire** |
-|----------------------------|----------------|---------------------------|-------------------------|
-| **Délai critique** | Temps maximal autorisé pour réaliser un dosage anti-Xa sans compromettre la sécurité du patient. Pour les demandes urgentes, ce délai est généralement de 1 heure après réception de l'échantillon au laboratoire. | - **Précision** : Insiste sur l'impact direct sur la sécurité du patient.<br>- **Standardisation** : Aligné sur les pratiques des cliniciens et des sociétés savantes (ex : SFAR).<br>- **Exhaustivité** : Inclut une valeur par défaut (1 heure) tout en permettant des ajustements selon le contexte clinique. | Délai d'urgence, délai maximal |
-
-| **Exemple d'emploi** |
-|----------------------|
-| *"Le délai critique pour ce dosage anti-Xa est de 1 heure en raison de l'hémorragie active du patient sous apixaban. Le résultat doit être transmis au prescripteur dans ce délai."* |
-
-| **Source** |
-|------------|
-| Étape 1 (04_contraintes_et_risques.md), Étape 2 (08_regles_metier.md) |
+**Exemple d’emploi validé :**
+> *"Le biologiste a décidé du **rejet de l’échantillon** en raison d’un tube mal étiqueté et d’un volume insuffisant, conformément aux règles de validation du laboratoire."*
 
 ---
-### **1.10. "Priorisation" vs. "classement par urgence" vs. "tri des demandes"**
+### **1.10. "Priorisation" vs. "Classement des priorités" vs. "Tri des demandes"**
 
-| **Problème** | **Type** | **Acteurs concernés et leurs interprétations** |
-|--------------|----------|------------------------------------------------|
-| **Termes problématiques** : "Priorisation", "classement par urgence", "tri des demandes" | **Synonymie** | - **SIL** : Utilise "priorisation" pour désigner le processus d'attribution d'un niveau de priorité aux demandes.<br>- **Techniciens de laboratoire** : Utilisent "classement par urgence" pour désigner l'ordre de traitement des demandes.<br>- **Médecins prescripteurs** : Utilisent "tri des demandes" pour désigner la sélection des demandes urgentes. |
+| **Termes problématiques** | Type de problème | Acteurs concernés et interprétations divergentes | Terme canonique retenu | Définition | Justification métier | Termes à proscrire |
+|---------------------------|------------------|--------------------------------------------------|------------------------|-----------|----------------------|--------------------|
+| **Priorisation** (Étape 2 : 08_regles_metier.md) | **Synonymie implicite** | - SIL : utilise *"priorisation"*. <br> - Techniciens de laboratoire : parlent de *"classement des priorités"*. <br> - Médecins prescripteurs : utilisent *"tri des demandes"*. | **Priorisation** | Mécanisme permettant de classer les demandes de dosage anti-Xa par ordre d’urgence, en fonction de critères cliniques (ex : urgence vitale) et organisationnels (ex : disponibilité du personnel). | - *"Priorisation"* est le terme le plus clair et inclut implicitement le *"classement"* et le *"tri"*. <br> - Évite la confusion avec *"priorité"* (qui est un état, pas un mécanisme). <br> - Aligné sur les pratiques des SIL (ex : *"le SIL doit appliquer une priorisation automatique"*). | *"Classement des priorités"*, *"Tri des demandes"* |
+| **Classement des priorités** | **Traduction divergente** | - Utilisé pour désigner la hiérarchisation des demandes. <br> - Risque de confusion avec *"priorité"* (qui est un état). | **Priorisation** | Voir ci-dessus. | - *"Classement des priorités"* est trop descriptif et peut inclure des étapes manuelles. <br> - *"Priorisation"* est plus dynamique et inclut les mécanismes automatiques. | *"Classement des priorités"* |
+| **Tri des demandes** | **Expression floue** | - Utilisé pour désigner la sélection des demandes à traiter en premier. <br> - Risque de confusion avec le *"tri"* manuel (ex : tri par ordre alphabétique). | **Priorisation** | Voir ci-dessus. | - *"Tri des demandes"* est trop vague et peut inclure des méthodes non standardisées. <br> - *"Priorisation"* est le terme métier standard. | *"Tri des demandes"* |
 
-| **Terme canonique retenu** | **Définition** | **Justification métier** | **Termes à proscrire** |
-|----------------------------|----------------|---------------------------|-------------------------|
-| **Priorisation** | Processus d'attribution d'un niveau de priorité aux demandes de dosage anti-Xa en fonction de l'urgence clinique. Les demandes urgentes (ex : hémorragie, thrombose) sont traitées en priorité. | - **Précision** : Insiste sur le processus systématique et objectif.<br>- **Standardisation** : Aligné sur les pratiques des techniciens de laboratoire et des sociétés savantes (ex : SFBC).<br>- **Exhaustivité** : Couvre tous les aspects critiques pour la réactivité du laboratoire. | Classement par urgence, tri des demandes |
-
-| **Exemple d'emploi** |
-|----------------------|
-| *"Le SIL applique une priorisation automatique des demandes urgentes de dosage anti-Xa pour réduire les délais d'analyse et garantir la sécurité des patients."* |
-
-| **Source** |
-|------------|
-| Étape 1 (03_concepts_metier_initiaux.md), Étape 2 (08_regles_metier.md) |
+**Exemple d’emploi validé :**
+> *"Le SIL doit appliquer une **priorisation** automatique des **demandes urgentes**, avec un délai de réponse maximal de 1 heure pour les cas critiques."*
 
 ---
-### **1.11. "Information clinique" vs. "données patient" vs. "informations thérapeutiques"**
 
-| **Problème** | **Type** | **Acteurs concernés et leurs interprétations** |
-|--------------|----------|------------------------------------------------|
-| **Termes problématiques** : "Information clinique", "données patient", "informations thérapeutiques" | **Synonymie + traduction divergente** | - **Médecins prescripteurs** : Utilisent "données patient" pour désigner les informations médicales.<br>- **Personnel infirmier** : Utilisent "informations thérapeutiques" pour désigner les traitements en cours.<br>- **Biologiste** : Utilise "information clinique" pour insister sur l'exhaustivité des données nécessaires à l'interprétation. |
+## **2. Points à valider auprès du métier**
+Les ambiguïtés suivantes **ne peuvent pas être tranchées sans expertise métier** et doivent être clarifiées avec les parties prenantes :
 
-| **Terme canonique retenu** | **Définition** | **Justification métier** | **Termes à proscrire** |
-|----------------------------|----------------|---------------------------|-------------------------|
-| **Information clinique** | Données médicales transmises avec la demande de dosage anti-Xa : traitement en cours (anticoagulant oral direct), fonction rénale, heure de la dernière prise, et contexte clinique (ex : antécédents thrombotiques ou hémorragiques). | - **Précision** : Insiste sur l'exhaustivité des données nécessaires à l'interprétation.<br>- **Standardisation** : Aligné sur les pratiques des biologistes et des sociétés savantes (ex : SFBC).<br>- **Exhaustivité** : Couvre tous les aspects critiques pour l'interprétation du dosage. | Données patient, informations thérapeutiques |
-
-| **Exemple d'emploi** |
-|----------------------|
-| *"Les informations cliniques transmises avec la demande incluent le traitement par apixaban, une fonction rénale à 30 mL/min, et une heure de dernière prise à 14h."* |
-
-| **Source** |
-|------------|
-| Étape 1 (04_contraintes_et_risques.md), Étape 2 (07_responsabilites_acteurs.md) |
+| **Ambiguïté** | **Description** | **Acteurs à consulter** | **Questions à poser** |
+|---------------|-----------------|-------------------------|-----------------------|
+| **Critères de conformité des tubes de prélèvement** | Aucune liste explicite des normes de tubes ou de volumes n’est fournie dans le corpus. Les mentions sont génériques (ex : *"normes strictes"* dans Étape 1 : 04_contraintes_et_risques.md). | - Biologiste <br> - Techniciens de laboratoire <br> - Personnel infirmier | - Quels sont les types de tubes acceptés (ex : tube citraté 3,2%) ? <br> - Quel est le volume minimal requis pour l’analyse ? <br> - Quels sont les protocoles d’étiquetage (ex : étiquette machine-readable, nom du patient, heure de prélèvement) ? |
+| **Mécanismes de priorisation des demandes urgentes** | Le corpus mentionne des délais de *"1 heure"* (Étape 2 : 08_regles_metier.md) et *"30 minutes"* (Étape 2 : 09_conflits_objectifs.md) pour les urgences vitales, mais aucune définition claire des critères pour distinguer une urgence vitale d’une urgence clinique standard. | - Médecins prescripteurs (Urgences, Réanimation) <br> - Biologiste | - Quels sont les critères de classement des urgences (ex : score clinique, type d’anticoagulant, fonction rénale) ? <br> - Quels sont les délais de réponse cibles par niveau de priorité (ex : <30 min pour les urgences vitales, <1h pour les urgences standard) ? |
+| **Protocole standardisé de transmission des informations cliniques** | Aucune standardisation n’est décrite dans le corpus, bien que cela soit identifié comme un irritant métier (Étape 1 : 05_vision_globale_du_domaine.md). | - Médecins prescripteurs <br> - Personnel infirmier <br> - Biologiste | - Quels sont les champs obligatoires à remplir dans la prescription (ex : nom de l’anticoagulant, dose, heure de la dernière prise, DFG) ? <br> - Quel est le format de transmission (ex : champ libre, liste déroulante, intégration automatique depuis le dossier patient) ? |
+| **Intégration avec les systèmes existants** | Aucune information n’est fournie sur la compatibilité du SIL avec les logiciels de prescription (ex : DxCare, Cristal) ou les automates de dosage anti-Xa. | - Équipe SIL <br> - Biologiste <br> - Équipe informatique | - Quels sont les systèmes existants à intégrer (ex : DxCare, Cristal) ? <br> - Quelle est la capacité d’interfaçage avec les automates de dosage anti-Xa ? |
+| **Attentes spécifiques en matière de sécurité et de traçabilité** | Aucune précision n’est donnée sur le niveau de chiffrement requis, les modalités de sauvegarde ou les processus de validation des utilisateurs. | - Équipe SIL <br> - Équipe informatique <br> - Responsable qualité | - Quel est le niveau de chiffrement requis pour les données patients (ex : AES-256) ? <br> - Quelles sont les modalités de sauvegarde et d’archivage des données (ex : durée de conservation, accès restreint) ? <br> - Quels sont les processus de validation des utilisateurs (ex : authentification forte, logs d’audit) ? |
 
 ---
-### **1.12. "Rejet d'échantillon" vs. "refus d'analyse" vs. "échantillon non conforme"**
-
-| **Problème** | **Type** | **Acteurs concernés et leurs interprétations** |
-|--------------|----------|------------------------------------------------|
-| **Termes problématiques** : "Rejet d'échantillon", "refus d'analyse", "échantillon non conforme" | **Synonymie + traduction divergente** | - **Biologiste** : Utilise "rejet d'échantillon" pour désigner la décision de ne pas analyser un échantillon non conforme.<br>- **Techniciens de laboratoire** : Utilisent "refus d'analyse" pour désigner la même décision.<br>- **Personnel infirmier** : Utilise "échantillon non conforme" pour désigner le matériel rejeté. |
-
-| **Terme canonique retenu** | **Définition** | **Justification métier** | **Termes à proscrire** |
-|----------------------------|----------------|---------------------------|-------------------------|
-| **Rejet d'échantillon** | Décision de ne pas analyser un échantillon en raison de sa non-conformité (ex : tube inadapté, étiquetage incorrect, délai de transport dépassé). | - **Précision** : Insiste sur la décision formelle et ses conséquences.<br>- **Standardisation** : Aligné sur les pratiques des biologistes et des sociétés savantes (ex : SFBC).<br>- **Exhaustivité** : Couvre toutes les raisons de rejet. | Refus d'analyse, échantillon non conforme |
-
-| **Exemple d'emploi** |
-|----------------------|
-| *"L'échantillon a été rejeté car le tube n'était pas un citrate 3.2% et l'étiquetage était incomplet. Une nouvelle demande doit être faite avec un prélèvement conforme."* |
-
-| **Source** |
-|------------|
-| Étape 1 (04_contraintes_et_risques.md), Étape 2 (08_regles_metier.md) |
+## **3. Synthèse des arbitrages terminologiques**
+| **Catégorie** | **Termes problématiques** | **Terme canonique retenu** | **Justification** |
+|---------------|---------------------------|----------------------------|-------------------|
+| **Urgences** | *"Demande urgente"*, *"Urgence clinique"*, *"Urgence vitale"* | **Urgence clinique** (général) / **Urgence vitale** (sous-catégorie) | Clarifie la hiérarchie des priorités et aligne le vocabulaire sur les pratiques cliniques. |
+| **Prescriptions** | *"Prescription médicale"*, *"Ordonnance"*, *"Demande de dosage"* | **Prescription médicale** | Distingue l’acte médical des actes de prélèvement et évite les confusions avec les *"demandes urgentes"*. |
+| **Échantillons** | *"Échantillon biologique"*, *"Prélèvement"*, *"Tube de prélèvement"* | **Échantillon biologique** (matériel) / **Tube de prélèvement** (contenant) / **Acte de prélèvement** (action) | Évite les ambiguïtés entre l’objet, le contenant et l’action. |
+| **Contexte** | *"Contexte clinique"*, *"Situation clinique"*, *"Contexte thérapeutique"* | **Contexte clinique** | Inclut tous les éléments nécessaires à l’interprétation (traitement, fonction rénale, antécédents). |
+| **Traçabilité** | *"Traçabilité"*, *"Documentation"*, *"Historique"* | **Traçabilité** | Terme réglementaire et métier standard pour l’enregistrement systématique des étapes. |
+| **Délais** | *"Délai de réponse"*, *"Temps de rendu"*, *"Délai d’analyse"* | **Délai de réponse** | Inclut implicitement le transport, l’analyse et la transmission des résultats. |
+| **Informations** | *"Information clinique"*, *"Données patient"*, *"Contexte thérapeutique"* | **Information clinique** | Ciblé sur les éléments nécessaires à l’interprétation du dosage anti-Xa. |
+| **Processus numérique** | *"Circuit informatisé"*, *"Workflow numérique"*, *"Système sécurisé"* | **Circuit informatisé** | Inclut la sécurité, la traçabilité et la priorisation. |
+| **Rejets** | *"Rejet d’échantillon"*, *"Refus d’analyse"*, *"Échantillon non conforme"* | **Rejet d’échantillon** | Définitif et clair, évite les confusions avec des rejets partiels. |
+| **Hiérarchisation** | *"Priorisation"*, *"Classement des priorités"*, *"Tri des demandes"* | **Priorisation** | Mécanisme dynamique incluant les critères cliniques et organisationnels. |
 
 ---
-### **1.13. "Urgence clinique" vs. "situation critique" vs. "urgence thérapeutique"**
+## **4. Règles de nommage pour les ateliers, la documentation et le code**
+Pour garantir la cohérence du langage commun dans les ateliers, la documentation et le code, les règles suivantes doivent être appliquées :
 
-| **Problème** | **Type** | **Acteurs concernés et leurs interprétations** |
-|--------------|----------|------------------------------------------------|
-| **Termes problématiques** : "Urgence clinique", "situation critique", "urgence thérapeutique" | **Synonymie + glissement de sens** | - **Médecins prescripteurs** : Utilisent "urgence clinique" pour désigner une situation nécessitant une réponse immédiate.<br>- **Biologiste** : Utilise "situation critique" pour insister sur la gravité.<br>- **Personnel infirmier** : Utilise "urgence thérapeutique" pour désigner une situation nécessitant un ajustement du traitement. |
+### **4.1. Termes canoniques obligatoires**
+Utiliser **exclusivement** les termes du glossaire ci-dessus dans :
+- Les ateliers (Event Storming, Domain Storytelling).
+- Les user stories.
+- La documentation technique (spécifications, manuels utilisateurs).
+- Le code (noms de classes, méthodes, variables).
 
-| **Terme canonique retenu** | **Définition** | **Justification métier** | **Termes à proscrire** |
-|----------------------------|----------------|---------------------------|-------------------------|
-| **Urgence clinique** | Situation où le délai de réponse pour un dosage anti-Xa impacte directement la sécurité du patient (ex : suspicion de surdosage, hémorragie active, thrombose artérielle ou veineuse). | - **Précision** : Insiste sur l'impact direct sur la sécurité du patient.<br>- **Standardisation** : Aligné sur les pratiques des cliniciens et des sociétés savantes (ex : SFAR, HAS).<br>- **Exhaustivité** : Couvre les situations critiques nécessitant une réponse immédiate. | Situation critique, urgence thérapeutique |
-
-| **Exemple d'emploi** |
-|----------------------|
-| *"Ce patient en réanimation présente une hémorragie sous apixaban : c'est une urgence clinique nécessitant un dosage anti-Xa immédiat et un résultat dans un délai critique de 1 heure."* |
-
-| **Source** |
-|------------|
-| Étape 1 (03_concepts_metier_initiaux.md), Étape 2 (08_regles_metier.md) |
-
----
-### **1.14. "Transmission des informations" vs. "transmission des données" vs. "communication clinique"**
-
-| **Problème** | **Type** | **Acteurs concernés et leurs interprétations** |
-|--------------|----------|------------------------------------------------|
-| **Termes problématiques** : "Transmission des informations", "transmission des données", "communication clinique" | **Synonymie + traduction divergente** | - **Médecins prescripteurs** : Utilisent "communication clinique" pour désigner l'échange d'informations entre acteurs.<br>- **Personnel infirmier** : Utilisent "transmission des informations" pour désigner la transmission des données cliniques.<br>- **SIL** : Utilise "transmission des données" dans les interfaces techniques. |
-
-| **Terme canonique retenu** | **Définition** | **Justification métier** | **Termes à proscrire** |
-|----------------------------|----------------|---------------------------|-------------------------|
-| **Transmission des informations** | Processus de communication des données cliniques entre les acteurs (médecins prescripteurs, personnel infirmier, biologistes) via des canaux sécurisés (ex : SIL, messagerie instantanée). | - **Précision** : Insiste sur le processus et les canaux de communication.<br>- **Standardisation** : Aligné sur les pratiques des acteurs et les exigences de sécurité (ex : RGPD).<br>- **Exhaustivité** : Couvre tous les aspects critiques pour la qualité des échanges. | Transmission des données, communication clinique |
-
-| **Exemple d'emploi** |
-|----------------------|
-| *"La transmission des informations cliniques doit être complète et précise pour éviter les erreurs d'interprétation du dosage anti-Xa. Les données doivent être transmises via le SIL pour garantir la traçabilité."* |
-
-| **Source** |
-|------------|
-| Étape 1 (04_contraintes_et_risques.md), Étape 2 (09_conflits_objectifs.md) |
+**Exemples :**
+| **Contexte** | **À éviter** | **À utiliser** |
+|--------------|---------------|----------------|
+| **User story** | *"En tant que médecin, je veux une ordonnance urgente pour un dosage anti-Xa."* | *"En tant que médecin prescripteur, je souhaite saisir une **prescription médicale** pour un **dosage anti-Xa** en situation d’**urgence clinique**, incluant les **informations cliniques** obligatoires."* |
+| **Nom de classe (code)** | `PrescriptionUrgent` | `PrescriptionMedicale` |
+| **Nom de méthode (code)** | `getTempsRendu()` | `getDelaiReponse()` |
+| **Nom de variable (code)** | `tubeNonConforme` | `rejetEchantillon` |
 
 ---
-### **1.15. "Standardisation" vs. "normalisation" vs. "uniformisation"**
 
-| **Problème** | **Type** | **Acteurs concernés et leurs interprétations** |
-|--------------|----------|------------------------------------------------|
-| **Termes problématiques** : "Standardisation", "normalisation", "uniformisation" | **Synonymie** | - **SIL** : Utilise "standardisation" pour désigner la définition de formats et protocoles communs.<br>- **Biologiste** : Utilise "normalisation" pour désigner l'application de normes.<br>- **Médecins prescripteurs** : Utilisent "uniformisation" pour désigner l'harmonisation des pratiques. |
-
-| **Terme canonique retenu** | **Définition** | **Justification métier** | **Termes à proscrire** |
-|----------------------------|----------------|---------------------------|-------------------------|
-| **Standardisation** | Processus de définition de formats et protocoles communs pour la transmission des informations cliniques et la gestion des demandes dans le SIL. | - **Précision** : Insiste sur la définition de règles communes et reproductibles.<br>- **Standardisation** : Aligné sur les pratiques des acteurs et les exigences de qualité (ex : ISO 15189).<br>- **Exhaustivité** : Couvre tous les aspects critiques pour l'interopérabilité et la traçabilité. | Normalisation, uniformisation |
-
-| **Exemple d'emploi** |
-|----------------------|
-| *"La standardisation des informations cliniques dans le SIL permettra d'améliorer la qualité des demandes de dosage anti-Xa et de réduire les erreurs d'interprétation."* |
-
-| **Source** |
-|------------|
-| Étape 1 (05_vision_globale_du_domaine.md), Étape 2 (09_conflits_objectifs.md) |
+### **4.2. Formes grammaticales**
+- **Privilégier les noms** pour les concepts :
+  - *"La **priorisation** des demandes urgentes est automatique."*
+  - *"Le **rejet de l’échantillon** est décidé par le biologiste."*
+- **Utiliser des verbes d’action** pour les processus :
+  - *"Le SIL doit **prioriser** les demandes urgentes."*
+  - *"Le personnel infirmier doit **vérifier la conformité** du tube."*
 
 ---
-### **1.16. "Sécurité des données" vs. "protection des données" vs. "confidentialité"**
-
-| **Problème** | **Type** | **Acteurs concernés et leurs interprétations** |
-|--------------|----------|------------------------------------------------|
-| **Termes problématiques** : "Sécurité des données", "protection des données", "confidentialité" | **Synonymie + traduction divergente** | - **SIL** : Utilise "sécurité des données" pour désigner la protection des informations patients.<br>- **Biologiste** : Utilise "protection des données" pour insister sur le respect du RGPD.<br>- **Médecins prescripteurs** : Utilisent "confidentialité" pour désigner le respect du secret médical. |
-
-| **Terme canonique retenu** | **Définition** | **Justification métier** | **Termes à proscrire** |
-|----------------------------|----------------|---------------------------|-------------------------|
-| **Sécurité des données** | Protection des informations patients conformément au RGPD et aux politiques hospitalières, incluant la confidentialité, l'intégrité et la disponibilité des données. | - **Précision** : Insiste sur l'ensemble des mesures de protection (confidentialité, intégrité, disponibilité).<br>- **Standardisation** : Aligné sur les pratiques des acteurs et les exigences réglementaires (ex : RGPD, HDS).<br>- **Exhaustivité** : Couvre tous les aspects critiques pour la protection des données. | Protection des données, confidentialité |
-
-| **Exemple d'emploi** |
-|----------------------|
-| *"La sécurité des données patients dans le SIL doit être garantie pour éviter les violations de confidentialité et les risques juridiques. Le chiffrement et les accès restreints sont obligatoires."* |
-
-| **Source** |
-|------------|
-| Étape 1 (04_contraintes_et_risques.md), Étape 2 (08_regles_metier.md) |
+### **4.3. Identifiants uniques (snake_case)**
+Pour les concepts clés, utiliser des identifiants en **snake_case** :
+- `prescription_medicale`
+- `echantillon_biologique`
+- `delai_reponse`
+- `rejet_echantillon`
+- `contexte_clinique`
 
 ---
-### **1.17. "Documentation" vs. "archivage" vs. "enregistrement"**
-
-| **Problème** | **Type** | **Acteurs concernés et leurs interprétations** |
-|--------------|----------|------------------------------------------------|
-| **Termes problématiques** : "Documentation", "archivage", "enregistrement" | **Synonymie + traduction divergente** | - **Techniciens de laboratoire** : Utilisent "documentation" pour désigner l'enregistrement des étapes du circuit.<br>- **SIL** : Utilise "enregistrement" pour désigner la saisie des données dans le système.<br>- **Biologiste** : Utilise "archivage" pour désigner le stockage à long terme des données. |
-
-| **Terme canonique retenu** | **Définition** | **Justification métier** | **Termes à proscrire** |
-|----------------------------|----------------|---------------------------|-------------------------|
-| **Documentation** | Enregistrement écrit ou numérique de chaque étape du circuit des demandes urgentes de dosage anti-Xa : prescription, prélèvement, transport, analyse, résultat. | - **Précision** : Insiste sur l'enregistrement systématique et complet de chaque étape.<br>- **Standardisation** : Aligné sur les pratiques des acteurs et les exigences réglementaires (ex : HAS, ISO 15189).<br>- **Exhaustivité** : Couvre tous les aspects critiques pour la traçabilité et la conformité. | Archivage, enregistrement |
-
-| **Exemple d'emploi** |
-|----------------------|
-| *"La documentation de chaque étape du circuit est obligatoire pour assurer la traçabilité et la conformité réglementaire. Elle doit inclure l'identité du patient, l'heure de prélèvement, le type de tube, et l'heure de réception au laboratoire."* |
-
-| **Source** |
-|------------|
-| Étape 1 (03_concepts_metier_initiaux.md), Étape 2 (08_regles_metier.md) |
+### **4.4. Éviter le jargon technique**
+- Remplacer les termes techniques par leur équivalent métier :
+  - Utiliser *"SIL"* plutôt que *"LIS"* (Laboratory Information System).
+  - Utiliser *"DFG"* (Débit de Filtration Glomérulaire) plutôt que *"clairance de la créatinine"* (sauf à la première occurrence).
+- Éviter les acronymes non expliqués :
+  - *"RGPD"* doit être défini à sa première occurrence (*Règlement Général sur la Protection des Données*).
 
 ---
-### **1.18. "Délai de réponse" vs. "temps de réponse" vs. "délai d'analyse"**
+### **4.5. Exemples de phrases types**
+#### **Pour les user stories :**
+1. *"En tant que **médecin prescripteur**, je souhaite saisir une **prescription médicale** avec les **informations cliniques** obligatoires (traitement, heure de la dernière prise, fonction rénale) afin que le **dosage anti-Xa** soit interprété correctement."*
+2. *"En tant que **biologiste**, je souhaite recevoir une **alerte** si un **échantillon biologique** est **non conforme** (tube inadapté, volume insuffisant) afin de **rejeter l’échantillon** et éviter une erreur d’interprétation."*
+3. *"En tant que **technicien de laboratoire**, je souhaite que le **SIL** **priorise automatiquement** les **demandes urgentes** afin de garantir un **délai de réponse** inférieur à 1 heure pour les cas critiques."*
 
-| **Problème** | **Type** | **Acteurs concernés et leurs interprétations** |
-|--------------|----------|------------------------------------------------|
-| **Termes problématiques** : "Délai de réponse", "temps de réponse", "délai d'analyse" | **Synonymie + traduction divergente** | - **SIL** : Utilise "délai de réponse" pour désigner le temps écoulé entre la réception de la demande et la transmission du résultat.<br>- **Biologiste** : Utilise "temps de réponse" pour désigner le même concept.<br>- **Médecins prescripteurs** : Utilisent "délai d'analyse" pour désigner le temps nécessaire à l'analyse en laboratoire. |
+#### **Pour la documentation technique :**
+- *"Le **circuit informatisé** doit assurer la **traçabilité** de chaque **prescription médicale**, depuis la saisie jusqu’à la transmission des résultats."*
+- *"Le **SIL** doit appliquer une **priorisation** basée sur les niveaux d’**urgence clinique** (urgence vitale, urgence standard)."*
 
-| **Terme canonique retenu** | **Définition** | **Justification métier** | **Termes à proscrire** |
-|----------------------------|----------------|---------------------------|-------------------------|
-| **Délai de réponse** | Temps écoulé entre la réception de la demande de dosage anti-Xa par le laboratoire et la transmission du résultat au prescripteur. Pour les demandes urgentes, ce délai ne doit pas excéder 1 heure. | - **Précision** : Insiste sur le temps total de réponse, incluant l'analyse et la transmission.<br>- **Standardisation** : Aligné sur les pratiques des acteurs et les exigences de qualité (ex : HAS).<br>- **Exhaustivité** : Couvre tous les aspects critiques pour la réactivité du laboratoire. | Temps de réponse, délai d'analyse |
+#### **Pour le code :**
+```python
+class PrescriptionMedicale:
+    def __init__(self, patient_id: str, anticoagulant: str, dose: float, heure_derniere_prise: datetime, dfg: float):
+        self.patient_id = patient_id
+        self.anticoagulant = anticoagulant  # ex: "apixaban"
+        self.dose = dose
+        self.heure_derniere_prise = heure_derniere_prise
+        self.dfg = dfg  # Débit de Filtration Glomérulaire
+        self.urgence = self._determiner_urgence()
 
-| **Exemple d'emploi** |
-|----------------------|
-| *"Le délai de réponse pour les demandes urgentes de dosage anti-Xa doit être inférieur à 1 heure pour garantir la sécurité des patients. Ce délai inclut l'analyse en laboratoire et la transmission du résultat au prescripteur."* |
+    def _determiner_urgence(self) -> str:
+        if self._est_urgence_vitale():
+            return "urgence_vitale"
+        else:
+            return "urgence_standard"
 
-| **Source** |
-|------------|
-| Étape 1 (04_contraintes_et_risques.md), Étape 2 (08_regles_metier.md) |
-
----
-### **1.19. "Délai de transport" vs. "temps d'acheminement"**
-
-| **Problème** | **Type** | **Acteurs concernés et leurs interprétations** |
-|--------------|----------|------------------------------------------------|
-| **Termes problématiques** : "Délai de transport", "temps d'acheminement" | **Synonymie** | - **Personnel infirmier** : Utilise "délai de transport" pour désigner le temps d'acheminement de l'échantillon.<br>- **Techniciens de laboratoire** : Utilisent "temps d'acheminement" pour désigner le même concept. |
-
-| **Terme canonique retenu** | **Définition** | **Justification métier** | **Termes à proscrire** |
-|----------------------------|----------------|---------------------------|-------------------------|
-| **Délai de transport** | Temps maximal autorisé pour acheminer l'échantillon biologique du service de soins au laboratoire, généralement fixé à 30 minutes pour garantir la fiabilité du dosage anti-Xa. | - **Précision** : Insiste sur le temps maximal acceptable pour le transport.<br>- **Standardisation** : Aligné sur les pratiques des acteurs et les exigences de qualité (ex : SFBC).<br>- **Exhaustivité** : Couvre tous les aspects critiques pour l'intégrité de l'échantillon. | Temps d'acheminement |
-
-| **Exemple d'emploi** |
-|----------------------|
-| *"Le délai de transport de l'échantillon ne doit pas excéder 30 minutes pour garantir la fiabilité du dosage anti-Xa. Un transport plus long peut compromettre l'intégrité de l'échantillon et fausser les résultats."* |
-
-| **Source** |
-|------------|
-| Étape 1 (04_contraintes_et_risques.md), Étape 2 (08_regles_metier.md) |
+    def _est_urgence_vitale(self) -> bool:
+        # Logique métier pour déterminer si la prescription est une urgence vitale
+        pass
+```
 
 ---
-### **1.20. "Heure de réception" vs. "date de réception"**
-
-| **Problème** | **Type** | **Acteurs concernés et leurs interprétations** |
-|--------------|----------|------------------------------------------------|
-| **Termes problématiques** : "Heure de réception", "date de réception" | **Synonymie** | - **Techniciens de laboratoire** : Utilisent "heure de réception" pour désigner le moment où l'échantillon est reçu au laboratoire.<br>- **SIL** : Utilise "date de réception" dans les interfaces techniques. |
-
-| **Terme canonique retenu** | **Définition** | **Justification métier** | **Termes à proscrire** |
-|----------------------------|----------------|---------------------------|-------------------------|
-| **Heure de réception** | Moment où l'échantillon biologique est reçu au laboratoire, enregistré dans le SIL. Cette heure est critique pour le calcul du délai de réponse. | - **Précision** : Insiste sur l'importance de l'heure exacte pour le calcul des délais.<br>- **Standardisation** : Aligné sur les pratiques des acteurs et les exigences de traçabilité (ex : ISO 15189).<br>- **Exhaustivité** : Couvre tous les aspects critiques pour la gestion des délais. | Date de réception |
-
-| **Exemple d'emploi** |
-|----------------------|
-| *"L'heure de réception de l'échantillon au laboratoire est 15h45. Le délai critique de 1 heure est respecté, car le résultat doit être transmis avant 16h45."* |
-
-| **Source** |
-|------------|
-| Étape 2 (08_regles_metier.md) |
-
----
-### **1.21. "Heure de prélèvement" vs. "heure de ponction"**
-
-| **Problème** | **Type** | **Acteurs concernés et leurs interprétations** |
-|--------------|----------|------------------------------------------------|
-| **Termes problématiques** : "Heure de prélèvement", "heure de ponction" | **Synonymie** | - **Personnel infirmier** : Utilise "heure de prélèvement" pour désigner le moment où le sang est prélevé chez le patient.<br>- **Médecins prescripteurs** : Utilisent "heure de ponction" pour désigner le même concept. |
-
-| **Terme canonique retenu** | **Définition** | **Justification métier** | **Termes à proscrire** |
-|----------------------------|----------------|---------------------------|-------------------------|
-| **Heure de prélèvement** | Moment où le sang est prélevé chez le patient pour le dosage anti-Xa. Cette heure est essentielle pour l'interprétation du résultat, car elle permet de calculer le délai depuis la dernière prise d'anticoagulant oral direct. | - **Précision** : Insiste sur l'importance de l'heure exacte pour l'interprétation.<br>- **Standardisation** : Aligné sur les pratiques des acteurs et les exigences de qualité (ex : SFBC).<br>- **Exhaustivité** : Couvre tous les aspects critiques pour l'interprétation du dosage. | Heure de ponction |
-
-| **Exemple d'emploi** |
-|----------------------|
-| *"L'heure de prélèvement est 15h15. L'heure de la dernière prise d'apixaban est 14h, ce qui permet de calculer un délai de 1h15 entre la prise et le prélèvement, conforme aux recommandations."* |
-
-| **Source** |
-|------------|
-| Étape 2 (08_regles_metier.md) |
-
----
-### **1.22. "Tube de prélèvement" vs. "tube à prélèvement" vs. "tube citrate"**
-
-| **Problème** | **Type** | **Acteurs concernés et leurs interprétations** |
-|--------------|----------|------------------------------------------------|
-| **Termes problématiques** : "Tube de prélèvement", "tube à prélèvement", "tube citrate" | **Synonymie + spécificité technique** | - **Personnel infirmier** : Utilise "tube de prélèvement" ou "tube à prélèvement" pour désigner le contenant.<br>- **Biologiste** : Précise "tube citrate 3.2%" pour insister sur le type de tube requis.<br>- **Techniciens de laboratoire** : Utilisent "tube citrate" dans les protocoles techniques. |
-
-| **Terme canonique retenu** | **Définition** | **Justification métier** | **Termes à proscrire** |
-|----------------------------|----------------|---------------------------|-------------------------|
-| **Tube de prélèvement** | Récipient spécifique utilisé pour collecter le sang en vue d'un dosage anti-Xa. Le tube doit être de type citrate 3.2% pour éviter la coagulation avant l'analyse. | - **Précision** : Insiste sur le type de tube requis (citrate 3.2%) et son rôle dans la prévention de la coagulation.<br>- **Standardisation** : Aligné sur les pratiques des acteurs et les exigences de qualité (ex : SFBC).<br>- **Exhaustivité** : Couvre tous les aspects critiques pour la conformité de l'échantillon. | Tube à prélèvement, tube citrate |
-
-| **Exemple d'emploi** |
-|----------------------|
-| *"Le tube de prélèvement doit être un citrate 3.2% pour éviter la coagulation avant l'analyse. L'utilisation d'un autre type de tube (ex : EDTA) compromettrait la fiabilité du dosage anti-Xa."* |
-
-| **Source** |
-|------------|
-| Étape 1 (03_concepts_metier_initiaux.md), Étape 2 (08_regles_metier.md) |
-
----
-### **1.23. "Interprétation du résultat" vs. "lecture du résultat"**
-
-| **Problème** | **Type** | **Acteurs concernés et leurs interprétations** |
-|--------------|----------|------------------------------------------------|
-| **Termes problématiques** : "Interprétation du résultat", "lecture du résultat" | **Synonymie** | - **Biologiste** : Utilise "interprétation du résultat" pour désigner l'analyse du résultat du dosage anti-Xa en fonction du contexte clinique.<br>- **Médecins prescripteurs** : Utilisent "lecture du résultat" pour désigner la même activité. |
-
-| **Terme canonique retenu** | **Définition** | **Justification métier** | **Termes à proscrire** |
-|----------------------------|----------------|---------------------------|-------------------------|
-| **Interprétation du résultat** | Analyse du résultat du dosage anti-Xa par le biologiste, tenant compte du traitement en cours (anticoagulant oral direct), de la fonction rénale, de l'heure de la dernière prise et du contexte clinique. | - **Précision** : Insiste sur l'analyse approfondie du résultat en fonction de multiples paramètres.<br>- **Standardisation** : Aligné sur les pratiques des biologistes et des sociétés savantes (ex : SFBC).<br>- **Exhaustivité** : Couvre tous les aspects critiques pour l'ajustement du traitement. | Lecture du résultat, analyse biologique |
-
-| **Exemple d'emploi** |
-|----------------------|
-| *"L'interprétation du résultat anti-Xa montre une activité thérapeutique pour l'apixaban, mais la fonction rénale altérée (30 mL/min) nécessite une surveillance accrue et éventuellement une adaptation de la posologie."* |
-
-| **Source** |
-|------------|
-| Étape 1 (03_concepts_metier_initiaux.md), Étape 2 (07_responsabilites_acteurs.md) |
-
----
-### **1.24. "Service clinique" vs. "unité clinique"**
-
-| **Problème** | **Type** | **Acteurs concernés et leurs interprétations** |
-|--------------|----------|------------------------------------------------|
-| **Termes problématiques** : "Service clinique", "unité clinique" | **Synonymie** | - **Médecins prescripteurs** : Utilisent "service clinique" pour désigner les unités hospitalières (ex : Urgences, Réanimation).<br>- **SIL** : Utilise "unité clinique" dans les interfaces techniques. |
-
-| **Terme canonique retenu** | **Définition** | **Justification métier** | **Termes à proscrire** |
-|----------------------------|----------------|---------------------------|-------------------------|
-| **Service clinique** | Unité hospitalière (ex : Urgences, Réanimation, Bloc opératoire) où sont pris en charge les patients sous anticoagulants oraux directs. | - **Précision** : Insiste sur le rôle de l'unité dans la prise en charge des patients.<br>- **Standardisation** : Aligné sur les pratiques des acteurs et les dénominations hospitalières courantes.<br>- **Clarté** : Évite toute confusion avec d'autres types d'unités (ex : unités administratives). | Unité clinique |
-
-| **Exemple d'emploi** |
-|----------------------|
-| *"La prescription de dosage anti-Xa provient du service clinique de réanimation. Ce service est responsable de la prise en charge des patients sous anticoagulants oraux directs en situation critique."* |
-
-| **Source** |
-|------------|
-| Étape 1 (02_acteurs_du_domaine.md), Étape 2 (06_cartographie_acteurs.md) |
-
----
-### **1.25. "Circuit informatisé" vs. "circuit digital" vs. "circuit sécurisé"**
-
-| **Problème** | **Type** | **Acteurs concernés et leurs interprétations** |
-|--------------|----------|------------------------------------------------|
-| **Termes problématiques** : "Circuit informatisé", "circuit digital", "circuit sécurisé" | **Synonymie + traduction divergente** | - **Biologiste** : Utilise "circuit informatisé" pour désigner le processus numérique de gestion des demandes.<br>- **SIL** : Utilise "circuit digital" dans les interfaces techniques.<br>- **Médecins prescripteurs** : Utilisent "circuit sécurisé" pour insister sur la sécurité des données. |
-
-| **Terme canonique retenu** | **Définition** | **Justification métier** | **Termes à proscrire** |
-|----------------------------|----------------|---------------------------|-------------------------|
-| **Circuit informatisé** | Processus numérique sécurisé et tracé pour la gestion des demandes urgentes de dosage anti-Xa, incluant la priorisation, la transmission des résultats et la traçabilité. | - **Précision** : Insiste sur l'aspect numérique, sécurisé et tracé du processus.<br>- **Standardisation** : Aligné sur les pratiques des acteurs et les exigences de qualité (ex : ISO 15189, HDS).<br>- **Exhaustivité** : Couvre tous les aspects critiques pour la gestion des demandes. | Circuit digital, circuit sécurisé |
-
-| **Exemple d'emploi** |
-|----------------------|
-| *"Le nouveau circuit informatisé doit garantir la traçabilité, la priorisation et la sécurité des demandes urgentes de dosage anti-Xa. Il doit permettre une transmission rapide des résultats aux prescripteurs."* |
-
-| **Source** |
-|------------|
-| Étape 1 (03_concepts_metier_initiaux.md), Étape 2 (08_regles_metier.md) |
-
----
-### **1.26. "Demande urgente" vs. "demande prioritaire" vs. "demande critique"**
-
-| **Problème** | **Type** | **Acteurs concernés et leurs interprétations** |
-|--------------|----------|------------------------------------------------|
-| **Termes problématiques** : "Demande urgente", "demande prioritaire", "demande critique" | **Synonymie** | - **Médecins prescripteurs** : Utilisent "demande urgente" pour désigner une demande nécessitant une réponse immédiate.<br>- **SIL** : Utilise "demande prioritaire" pour désigner les demandes classées comme urgentes.<br>- **Biologiste** : Utilise "demande critique" pour insister sur la gravité de la situation. |
-
-| **Terme canonique retenu** | **Définition** | **Justification métier** | **Termes à proscrire** |
-|----------------------------|----------------|---------------------------|-------------------------|
-| **Demande urgente** | Demande de dosage anti-Xa classée comme prioritaire en raison de la situation clinique du patient (ex : hémorragie active, thrombose artérielle ou veineuse, suspicion de surdosage). | - **Précision** : Insiste sur la classification de la demande en fonction de l'urgence clinique.<br>- **Standardisation** : Aligné sur les pratiques des acteurs et les exigences de qualité (ex : HAS, SFAR).<br>- **Exhaustivité** : Couvre tous les aspects critiques pour la réactivité du laboratoire. | Demande prioritaire, demande critique |
-
-| **Exemple d'emploi** |
-|----------------------|
-| *"Cette demande de dosage anti-Xa est classée comme urgente en raison d'une hémorragie active sous apixaban. Le SIL doit la prioriser pour garantir un délai de réponse inférieur à 1 heure."* |
-
-| **Source** |
-|------------|
-| Étape 1 (03_concepts_metier_initiaux.md), Étape 2 (08_regles_metier.md) |
-
----
-### **1.27. "Traçabilité des données" vs. "historique des données"**
-
-| **Problème** | **Type** | **Acteurs concernés et leurs interprétations** |
-|--------------|----------|------------------------------------------------|
-| **Termes problématiques** : "Traçabilité des données", "historique des données" | **Synonymie** | - **SIL** : Utilise "traçabilité des données" pour désigner l'enregistrement systématique de chaque étape du circuit.<br>- **Médecins prescripteurs** : Utilisent "historique des données" pour désigner le suivi des dosages antérieurs. |
-
-| **Terme canonique retenu** | **Définition** | **Justification métier** | **Termes à proscrire** |
-|----------------------------|----------------|---------------------------|-------------------------|
-| **Traçabilité des données** | Enregistrement systématique de toutes les informations liées à une demande de dosage anti-Xa : prescription, prélèvement, transport, analyse, résultat. | - **Précision** : Insiste sur l'enregistrement systématique et complet de chaque étape.<br>- **Standardisation** : Aligné sur les pratiques des acteurs et les exigences de traçabilité (ex : ISO 15189, RGPD).<br>- **Exhaustivité** : Couvre tous les aspects critiques pour la sécurité et la conformité réglementaire. | Historique des données |
-
-| **Exemple d'emploi** |
-|----------------------|
-| *"La traçabilité des données doit inclure l'identité du patient, l'heure de prélèvement, le type de tube utilisé, l'heure de réception au laboratoire, et l'heure de transmission du résultat. Ces données sont essentielles pour garantir la sécurité du patient et la conformité réglementaire."* |
-
-| **Source** |
-|------------|
-| Étape 1 (03_concepts_metier_initiaux.md), Étape 2 (08_regles_metier.md) |
-
----
-### **1.28. "Heure de la dernière prise" vs. "délai depuis la dernière dose"**
-
-| **Problème** | **Type** | **Acteurs concernés et leurs interprétations** |
-|--------------|----------|------------------------------------------------|
-| **Termes problématiques** : "Heure de la dernière prise", "délai depuis la dernière dose" | **Synonymie** | - **Médecins prescripteurs** : Utilisent "heure de la dernière prise" pour désigner le moment où le patient a ingéré sa dernière dose d'anticoagulant oral direct.<br>- **Personnel infirmier** : Utilisent "délai depuis la dernière dose" pour désigner le temps écoulé depuis cette prise. |
-
-| **Terme canonique retenu** | **Définition** | **Justification métier** | **Termes à proscrire** |
-|----------------------------|----------------|---------------------------|-------------------------|
-| **Heure de la dernière prise** | Moment auquel le patient a ingéré sa dernière dose d'anticoagulant oral direct. Cette information est essentielle pour l'interprétation du dosage anti-Xa, car elle permet de calculer le délai entre la prise et le prélèvement. | - **Précision** : Insiste sur l'importance de l'heure exacte pour l'interprétation.<br>- **Standardisation** : Aligné sur les pratiques des acteurs et les exigences de qualité (ex : SFBC).<br>- **Exhaustivité** : Couvre tous les aspects critiques pour l'interprétation du dosage. | Délai depuis la dernière dose |
-
-| **Exemple d'emploi** |
-|----------------------|
-| *"L'heure de la dernière prise d'apixaban est à 14h. Le prélèvement doit être fait à 16h pour un dosage anti-Xa fiable, ce qui permet de calculer un délai de 2 heures entre la prise et le prélèvement, conforme aux recommandations."* |
-
-| **Source
+## **5. Annexe : Sources des arbitrages**
+| **Ambiguïté** | **Sources principales** | **Termes canoniques retenus** |
+|---------------|--------------------------|-------------------------------|
+| *"Demande urgente"* vs. *"Urgence clinique"* | Étape 1 : 01_reformulation_du_besoin.md, Étape 2 : 08_regles_metier.md, Étape 2 : 09_conflits_objectifs.md | **Urgence clinique** / **Urgence vitale** |
+| *"Prescription médicale"* vs. *"Ordonnance"* | Étape 1 : 03_concepts_metier_initiaux.md, Étape 2 : 07_responsabilites_acteurs.md | **Prescription médicale** |
+| *"Échantillon biologique"* vs. *"Prélèvement"* | Étape 1 : 03_concepts_metier_initiaux.md, Étape 2 : 08_regles_metier.md | **Échantillon biologique** / **Tube de prélèvement** / **Acte de prélèvement** |
+| *"Contexte clinique"* vs. *"Situation clinique"* | Étape 1 : 03_concepts_metier_initiaux.md, Étape 2 : 07_responsabilites_acteurs.md | **Contexte clinique** |
+| *"Traçabilité"* vs. *"Documentation"* | Étape 1 : 03_concepts_metier_initiaux.md, Étape 2 : 08_regles_metier.md | **Traçabilité** |
+| *"Délai de réponse"* vs. *"Temps de rendu"* | Étape 2 : 08_regles_metier.md | **Délai de réponse** |
+| *"Information clinique"* vs. *"Données patient"* | Étape 1 : 04_contraintes_et_risques.md, Étape 2 : 08_regles_metier.md | **Information clinique** |
+| *"Circuit informatisé"* vs. *"Workflow numérique"* | Étape 1 : 03_concepts_metier_initiaux.md, Étape 2 : 08_regles_metier.md | **Circuit informatisé** |
+| *"Rejet d’échantillon"* vs. *"Refus d’analyse"* | Étape 2 : 08_regles_metier.md | **Rejet d’échantillon** |
+| *"Priorisation"* vs. *"Classement des priorités"* | Étape 2 : 08_regles_metier.md | **Priorisation** |
