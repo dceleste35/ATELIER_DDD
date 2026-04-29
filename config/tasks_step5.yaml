@@ -1,0 +1,129 @@
+identifier_bounded_contexts:
+  description: >
+    À partir de la demande métier initiale et des livrables des étapes 1
+    à 4, identifier les Bounded Contexts qui composent le système cible
+    du circuit des demandes urgentes de dosage anti-Xa. Distinguer
+    explicitement Bounded Context et sous-domaine : un sous-domaine peut
+    contenir plusieurs Bounded Contexts, et un Bounded Context peut
+    couvrir plusieurs sous-domaines. Pour chaque Bounded Context, donner
+    un nom canonique issu du langage commun (étape 3), une raison d'être
+    métier en une phrase, et le ou les sous-domaines qu'il couvre.
+  expected_output: >
+    Un document Markdown intitulé "Identification des Bounded Contexts"
+    contenant :
+    - un tableau récapitulatif Bounded Context / Raison d'être métier /
+      Sous-domaine(s) couvert(s) / Type stratégique (Core / Supporting /
+      Generic, hérité de l'étape 4) ;
+    - pour chaque Bounded Context, un paragraphe d'introduction de
+      quelques lignes ;
+    - les Bounded Contexts candidats à être fusionnés ou scindés et la
+      justification ;
+    - les hypothèses retenues et les points à valider auprès du métier.
+  output_file: outputs/etape-5/21_identification_bounded_contexts.md
+
+definir_frontieres_et_responsabilites:
+  description: >
+    Pour chaque Bounded Context identifié, définir précisément ses
+    frontières (ce qui en fait partie / ce qui en est exclu), ses
+    responsabilités métier, son vocabulaire propre (avec les termes du
+    langage commun pertinents) et ses règles internes. Mettre en évidence
+    les zones où un même terme du langage commun prend un sens différent
+    selon le contexte (variations sémantiques par contexte).
+  expected_output: >
+    Un document Markdown intitulé "Frontières et responsabilités des
+    Bounded Contexts" contenant pour chaque Bounded Context :
+    - sa raison d'être ;
+    - ses responsabilités métier (ce qu'il fait) ;
+    - ses non-responsabilités (ce qu'il ne fait pas) ;
+    - son vocabulaire propre (sous-ensemble du langage commun) ;
+    - les variations sémantiques (terme commun, sens dans ce contexte) ;
+    - les règles métier internes (références aux règles formalisées en
+      étape 2) ;
+    - les acteurs principaux du contexte ;
+    - les invariants à respecter en permanence.
+  output_file: outputs/etape-5/22_frontieres_et_responsabilites.md
+
+cartographier_relations_inter_contextes:
+  description: >
+    Cartographier la Context Map : qualifier chaque relation entre
+    Bounded Contexts à l'aide des patterns DDD canoniques. Pour chaque
+    paire de contextes en relation, préciser le pattern retenu
+    (Partnership, Shared Kernel, Customer/Supplier, Conformist,
+    Anticorruption Layer (ACL), Open Host Service (OHS), Published
+    Language (PL), Separate Ways, Big Ball of Mud), le sens de la
+    dépendance (upstream / downstream), la motivation et le risque
+    associé.
+  expected_output: >
+    Un document Markdown intitulé "Context Map — Relations entre
+    Bounded Contexts" contenant :
+    - un tableau Contexte source (Upstream) / Contexte cible (Downstream) /
+      Pattern DDD / Motivation métier / Risque de couplage / Mitigation
+      proposée ;
+    - une description courte de chaque pattern retenu et pourquoi il est
+      adapté à la relation considérée ;
+    - les relations critiques pour la sécurité patient et la traçabilité ;
+    - les Anticorruption Layers à mettre en place et leur justification ;
+    - les Open Host Services et Published Languages à formaliser.
+  output_file: outputs/etape-5/23_context_map_relations.md
+
+specifier_contrats_integration:
+  description: >
+    Spécifier les contrats d'échange entre Bounded Contexts au niveau
+    métier : quelles informations sortent d'un contexte (Published
+    Language), sous quelle forme (commande, requête, événement de
+    domaine, donnée de référence), avec quel mode d'intégration
+    (synchrone / asynchrone), à quelle fréquence et avec quel niveau
+    de garantie (idempotence, ordre, livraison). Ne pas spécifier
+    encore de format technique (JSON, Avro, gRPC, etc.) — rester au
+    niveau du contrat métier.
+  expected_output: >
+    Un document Markdown intitulé "Contrats d'intégration entre
+    Bounded Contexts" contenant :
+    - un tableau par contexte exposant ses sorties (Published Language) :
+      nom de l'élément échangé, type (commande / requête / événement /
+      référence), description métier, contexte consommateur,
+      mode (synchrone / asynchrone), garanties attendues ;
+    - les commandes acceptées par chaque contexte (entrées) ;
+    - les événements de domaine émis par chaque contexte (sans modèle
+      tactique détaillé) ;
+    - les données de référence partagées et leur contexte propriétaire ;
+    - les politiques d'idempotence, d'ordre et de cohérence ;
+    - les implications pour l'organisation des équipes (Conway's Law).
+  output_file: outputs/etape-5/24_contrats_integration.md
+
+synthetiser_context_map:
+  description: >
+    Synthétiser le travail de l'étape 5 sous la forme d'un UNIQUE schéma
+    Mermaid (`flowchart LR` ou `flowchart TD`) représentant la Context
+    Map complète : tous les Bounded Contexts identifiés, leur nature
+    stratégique (Core / Supporting / Generic) par couleur, et toutes les
+    relations inter-contextes qualifiées par leur pattern DDD sur les
+    arêtes (ex. ACL, OHS+PL, Customer/Supplier, Conformist, Shared
+    Kernel, Partnership, Separate Ways). Aucun texte explicatif autour
+    du schéma ; seul le bloc de code Mermaid est attendu.
+  expected_output: >
+    Un fichier Markdown contenant EXCLUSIVEMENT un bloc de code Mermaid
+    (```mermaid ... ```), sans aucune phrase, titre ou paragraphe avant
+    ou après. Le contenu Mermaid doit respecter strictement ces règles :
+
+    - Directive : `flowchart LR` (gauche-droite, recommandé pour une
+      Context Map) ou `flowchart TD`.
+    - Un nœud par Bounded Context, identifié par un id court en
+      PascalCase (ex. `Prescription`, `AnalyseAntiXa`, `Tracabilite`).
+    - Définir 3 classes de style avec `classDef` :
+        * `core` : `fill:#ff6b6b,stroke:#c92a2a,color:#fff,stroke-width:2px`
+        * `supporting` : `fill:#4dabf7,stroke:#1864ab,color:#fff,stroke-width:2px`
+        * `generic` : `fill:#adb5bd,stroke:#495057,color:#fff,stroke-width:1px`
+    - Appliquer la classe à chaque nœud via `class NodeId core|supporting|generic`.
+    - Représenter chaque relation par une arête orientée allant de
+      l'Upstream vers le Downstream, avec un label indiquant le pattern
+      DDD retenu (ex. `Prescription -->|OHS+PL| AnalyseAntiXa`,
+      `LegacyHIS -->|ACL| Prescription`, `Tracabilite -->|Conformist| Prescription`).
+    - Utiliser `subgraph` si pertinent pour regrouper les Bounded
+      Contexts par sous-domaine.
+    - Inclure une légende sous forme de nœuds isolés étiquetés `Core`,
+      `Supporting`, `Generic` (chacun avec sa classe correspondante).
+
+    Aucune autre sortie n'est acceptée : pas de tableau, pas de texte
+    introductif, pas de commentaire markdown autour du bloc Mermaid.
+  output_file: outputs/etape-5/25_synthese_context_map.md

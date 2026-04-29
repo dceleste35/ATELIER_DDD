@@ -156,6 +156,53 @@ python src/runner.py --step 4
 
 ---
 
+## Étape 5 : Délimiter les Bounded Contexts
+
+### Objectif
+
+Transformer le découpage en sous-domaines de l'étape 4 en **frontières explicites de responsabilité** : les Bounded Contexts. Au sein de chaque contexte, un modèle métier, un vocabulaire et des règles conservent un sens stable et non ambigu.
+
+Pour chaque Bounded Context : périmètre, responsabilités, modèle propre, vocabulaire (issu du langage commun), règles internes, variations sémantiques. Construction de la **Context Map** qualifiant chaque relation inter-contextes selon les patterns DDD canoniques :
+
+- **Partnership** — coopération étroite et synchronisée ;
+- **Shared Kernel** — modèle partagé minimal ;
+- **Customer / Supplier** — dépendance fournisseur asymétrique ;
+- **Conformist** — adhésion forcée au modèle amont ;
+- **Anticorruption Layer (ACL)** — couche de traduction protectrice ;
+- **Open Host Service (OHS)** + **Published Language (PL)** — interface publiée stable ;
+- **Separate Ways** — pas d'intégration ;
+- **Big Ball of Mud** — zone non maîtrisée à isoler.
+
+L'agent IA reçoit en contexte :
+- la demande métier d'origine (`data/input/`) ;
+- les livrables des étapes 1, 2, 3 et 4.
+
+Aucun modèle tactique (entités, agrégats, value objects, événements détaillés) n'est encore produit — c'est le rôle de l'étape 6.
+
+### Livrables produits
+
+Générés dans `outputs/etape-5/` :
+
+```text
+21_identification_bounded_contexts.md
+22_frontieres_et_responsabilites.md
+23_context_map_relations.md
+24_contrats_integration.md
+25_synthese_context_map.md       # schéma Mermaid uniquement
+```
+
+Livrable principal : `25_synthese_context_map.md` (Context Map sous forme de diagramme Mermaid).
+
+### Exécution
+
+```bash
+python src/runner.py --step 5
+```
+
+> Pré-requis : les livrables des étapes 1, 2, 3 et 4 doivent être présents dans leurs dossiers `outputs/etape-N/`.
+
+---
+
 ## Les inputs
 
 Les inputs (demandes utilisateurs) sont à déposer dans le répertoire `data/input/`. Dans cet exemple, vous trouverez la demande d'évolution d'un SI émise par un biologiste.
@@ -219,9 +266,12 @@ python src/runner.py --step 3
 
 # Étape 4 : découpage en sous-domaines (lit auto les livrables étapes 1 + 2 + 3)
 python src/runner.py --step 4
+
+# Étape 5 : Bounded Contexts + Context Map (lit auto les livrables étapes 1 à 4)
+python src/runner.py --step 5
 ```
 
-Variable d'environnement équivalente : `DDD_STEP=4 python src/runner.py`.
+Variable d'environnement équivalente : `DDD_STEP=5 python src/runner.py`.
 
 ---
 
@@ -237,14 +287,17 @@ ATELIER_DDD/
 │   ├── agents_step3.yaml    # agent langage commun
 │   ├── tasks_step3.yaml     # 5 tâches étape 3
 │   ├── agents_step4.yaml    # agent stratège sous-domaines
-│   └── tasks_step4.yaml     # 5 tâches étape 4
+│   ├── tasks_step4.yaml     # 5 tâches étape 4
+│   ├── agents_step5.yaml    # agent designer Bounded Contexts
+│   └── tasks_step5.yaml     # 5 tâches étape 5
 ├── data/
 │   └── input/               # demandes métier (entrées)
 ├── outputs/
 │   ├── etape-1/             # livrables étape 1
 │   ├── etape-2/             # livrables étape 2
 │   ├── etape-3/             # livrables étape 3
-│   └── etape-4/             # livrables étape 4
+│   ├── etape-4/             # livrables étape 4
+│   └── etape-5/             # livrables étape 5
 ├── src/
 │   └── runner.py            # orchestrateur multi-étapes
 ├── .env                     # secrets locaux (non versionné)
@@ -256,4 +309,4 @@ ATELIER_DDD/
 
 ## Remarque
 
-Ce projet couvre actuellement les étapes **1**, **2**, **3** et **4** de la méthode DDD. Les étapes suivantes — modélisation détaillée (bounded contexts, agrégats, value objects, événements métier), cas d'usage et architecture applicative — ne sont pas encore incluses.
+Ce projet couvre actuellement les étapes **1**, **2**, **3**, **4** et **5** de la méthode DDD. Les étapes suivantes — modélisation tactique (agrégats, entités, value objects, événements de domaine, services, repositories), cas d'usage et architecture applicative — ne sont pas encore incluses.

@@ -21,6 +21,7 @@ AGENT_KEY_BY_STEP: Dict[int, str] = {
     2: "domain_structuring_analyst",
     3: "domain_language_curator",
     4: "domain_decomposition_strategist",
+    5: "bounded_context_designer",
 }
 
 
@@ -169,6 +170,23 @@ LIVRABLES DES ÉTAPES PRÉCÉDENTES
             "- Ne pas produire de bounded contexts détaillés — c'est l'étape 5.\n"
             "- Ne pas produire de modèle tactique (entités, agrégats, value objects, "
             "événements).\n"
+            "- Ne pas produire de schéma d'architecture technique."
+        ),
+        5: (
+            "- Rester strictement dans l'étape 5 : définition des Bounded Contexts "
+            "et cartographie des relations inter-contextes (Context Map).\n"
+            "- S'appuyer sur les livrables des étapes 1, 2, 3 et 4 fournis ci-dessus.\n"
+            "- Nommer les Bounded Contexts avec le langage commun (étape 3).\n"
+            "- Distinguer Bounded Context et sous-domaine : un sous-domaine peut "
+            "contenir plusieurs Bounded Contexts, et un contexte peut couvrir "
+            "plusieurs sous-domaines.\n"
+            "- Qualifier chaque relation inter-contextes par un pattern DDD canonique "
+            "(Partnership, Shared Kernel, Customer/Supplier, Conformist, ACL, OHS, "
+            "Published Language, Separate Ways, Big Ball of Mud).\n"
+            "- Ne pas produire de modèle tactique (entités, agrégats, value objects, "
+            "événements de domaine détaillés) — c'est l'étape 6.\n"
+            "- Ne pas produire de format technique d'API (JSON, gRPC, Avro...) ; "
+            "rester au niveau du contrat métier.\n"
             "- Ne pas produire de schéma d'architecture technique."
         ),
     }
