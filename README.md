@@ -107,7 +107,7 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-Crée un fichier `.env` à la racine. Le projet utilise **Mistral** (via [LiteLLM](https://docs.litellm.ai/) intégré à CrewAI) :
+Crée un fichier `.env` à la racine. Le projet utilise **Mistral** via [LiteLLM](https://docs.litellm.ai/) :
 
 ```
 MISTRAL_API_KEY=...
@@ -115,6 +115,12 @@ LLM_MODEL=mistral/mistral-small-latest   # optionnel — défaut : mistral-small
 ```
 
 Le modèle peut être changé pour `mistral/mistral-large-latest`, `mistral/mistral-tiny`, etc. Voir [Mistral models](https://docs.mistral.ai/getting-started/models/models_overview/).
+
+> **Important** : Mistral n'est pas un provider natif de CrewAI. Le package `litellm` est requis pour l'intégration et est inclus dans `requirements.txt`. Si tu rencontres l'erreur *"Unable to initialize LLM ... LiteLLM fallback package is not installed"*, installe-le manuellement :
+>
+> ```bash
+> pip install litellm
+> ```
 
 ---
 
