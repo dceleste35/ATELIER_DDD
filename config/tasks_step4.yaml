@@ -1,0 +1,115 @@
+decouper_sous_domaines:
+  description: >
+    À partir de la demande métier initiale et des livrables des étapes 1,
+    2 et 3, identifier les sous-domaines cohérents qui composent le
+    domaine global du circuit des demandes urgentes de dosage anti-Xa.
+    Chaque sous-domaine doit regrouper un ensemble homogène de
+    problématiques métier (par exemple : prescription, prélèvement,
+    qualité pré-analytique, analyse biologique, validation, restitution
+    et interprétation, traçabilité, urgence et priorisation, gestion
+    des astreintes, etc.). Utiliser strictement le langage commun fixé
+    en étape 3 pour nommer les sous-domaines.
+  expected_output: >
+    Un document Markdown intitulé "Découpage en sous-domaines" contenant :
+    - un tableau récapitulatif des sous-domaines identifiés ;
+    - pour chaque sous-domaine : nom canonique, finalité métier,
+      problématiques regroupées, acteurs principaux, règles métier
+      principales (références aux règles formalisées en étape 2),
+      données / informations manipulées, frontières (ce qui en fait
+      partie / ce qui n'en fait pas partie) ;
+    - les zones de chevauchement potentielles entre sous-domaines à
+      arbitrer ;
+    - les hypothèses de découpage et les points à valider auprès du
+      métier.
+  output_file: outputs/etape-4/16_decoupage_sous_domaines.md
+
+classifier_core_supporting_generic:
+  description: >
+    Classifier chaque sous-domaine identifié en Core (cœur stratégique
+    de différenciation métier), Supporting (support nécessaire mais
+    non différenciant) ou Generic (commodité interchangeable, pouvant
+    s'appuyer sur des solutions externes). Justifier chaque classification
+    par des critères métier explicites : valeur clinique, sécurité
+    patient, différenciation concurrentielle, fréquence d'usage,
+    risque réglementaire, disponibilité de solutions du marché.
+  expected_output: >
+    Un document Markdown intitulé "Classification stratégique des
+    sous-domaines" contenant :
+    - un tableau Sous-domaine / Classification (Core / Supporting /
+      Generic) / Justification métier / Niveau d'investissement
+      recommandé / Risque si négligé ;
+    - une carte stratégique synthétique (texte ou ASCII) positionnant
+      les sous-domaines selon deux axes : importance métier et
+      complexité de mise en œuvre ;
+    - les implications pour la priorisation des efforts de conception
+      et pour l'organisation des équipes ;
+    - les sous-domaines candidats à des solutions du marché (Generic) ;
+    - les points à valider auprès des décideurs métier.
+  output_file: outputs/etape-4/17_classification_strategique.md
+
+formaliser_finalites_et_regles:
+  description: >
+    Pour chaque sous-domaine, formaliser sa finalité métier propre, ses
+    règles spécifiques (validations, priorités, seuils, exceptions,
+    droits) et ses invariants. Distinguer les règles internes au
+    sous-domaine des règles partagées avec d'autres sous-domaines.
+    S'appuyer sur les règles métier formalisées en étape 2 sans les
+    réinventer ; les rattacher aux bons sous-domaines.
+  expected_output: >
+    Un document Markdown intitulé "Finalités et règles par sous-domaine"
+    contenant pour chaque sous-domaine :
+    - la finalité métier en une phrase ;
+    - les invariants à respecter en permanence ;
+    - les règles métier internes (références aux règles de l'étape 2) ;
+    - les règles partagées avec d'autres sous-domaines ;
+    - les acteurs responsables au sein du sous-domaine ;
+    - les indicateurs de succès métier ;
+    - les modes de défaillance (ce qui se passe si les règles
+      ne sont pas respectées).
+  output_file: outputs/etape-4/18_finalites_et_regles.md
+
+cartographier_interactions:
+  description: >
+    Cartographier les interactions entre les sous-domaines : quelles
+    informations s'échangent, dans quel sens, à quels moments du
+    parcours, sous quelles formes (synchrone / asynchrone, donnée /
+    événement / décision), et avec quels couplages. Identifier les
+    interactions critiques (impact sécurité patient, délai, traçabilité)
+    et les couplages à éviter ou à formaliser. Ne pas encore concevoir
+    de contrats d'API ni de bounded contexts détaillés — rester au
+    niveau des flux métier.
+  expected_output: >
+    Un document Markdown intitulé "Interactions entre sous-domaines"
+    contenant :
+    - une vue d'ensemble du parcours métier traversant les sous-domaines ;
+    - un tableau des interactions Sous-domaine source / Sous-domaine
+      cible / Information ou décision échangée / Déclencheur /
+      Mode (synchrone / asynchrone) / Criticité / Risque de couplage ;
+    - les interactions critiques pour la sécurité patient et la
+      traçabilité ;
+    - les couplages forts à formaliser et les couplages faibles à
+      privilégier ;
+    - les points d'attention pour la future modélisation tactique.
+  output_file: outputs/etape-4/19_interactions_sous_domaines.md
+
+synthetiser_strategie_sous_domaines:
+  description: >
+    Synthétiser le découpage stratégique de l'étape 4 en un document
+    de référence exploitable comme socle pour l'étape 5 (modélisation
+    des bounded contexts) et au-delà. Mettre en évidence où se situe
+    la valeur métier principale, ce qui est cœur stratégique vs
+    support vs commodité, l'organisation cible des équipes et la
+    feuille de route de conception.
+  expected_output: >
+    Un document Markdown intitulé "Synthèse stratégique du découpage
+    en sous-domaines" contenant :
+    - une carte synthétique des sous-domaines et de leurs interactions ;
+    - le ou les sous-domaines Core qui portent la valeur métier ;
+    - les sous-domaines Supporting nécessaires mais non différenciants ;
+    - les sous-domaines Generic candidats à externalisation ou achat ;
+    - une proposition d'organisation des équipes (alignement
+      sous-domaines ↔ équipes) ;
+    - une priorisation indicative des efforts de conception ;
+    - les zones d'incertitude restantes et les questions à valider
+      avant de passer à l'étape 5 (bounded contexts).
+  output_file: outputs/etape-4/20_synthese_sous_domaines.md

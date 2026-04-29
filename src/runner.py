@@ -20,6 +20,7 @@ AGENT_KEY_BY_STEP: Dict[int, str] = {
     1: "domain_understanding_analyst",
     2: "domain_structuring_analyst",
     3: "domain_language_curator",
+    4: "domain_decomposition_strategist",
 }
 
 
@@ -152,8 +153,22 @@ LIVRABLES DES ÉTAPES PRÉCÉDENTES
             "- S'appuyer sur les livrables des étapes 1 et 2 fournis ci-dessus.\n"
             "- Produire un vocabulaire canonique, supprimer les ambiguïtés et "
             "aligner métier et technique.\n"
-            "- Ne pas produire de modèle DDD détaillé (bounded contexts, agrégats, "
-            "entités, value objects, événements) — c'est l'étape 4.\n"
+            "- Ne pas produire de découpage en sous-domaines, de bounded contexts, "
+            "ni de modèle tactique (entités, agrégats, value objects, événements) — "
+            "c'est le rôle des étapes suivantes.\n"
+            "- Ne pas produire de schéma d'architecture technique."
+        ),
+        4: (
+            "- Rester strictement dans l'étape 4 : découpage du domaine en "
+            "sous-domaines cohérents et classification stratégique "
+            "(Core / Supporting / Generic).\n"
+            "- S'appuyer sur les livrables des étapes 1, 2 et 3 fournis ci-dessus.\n"
+            "- Nommer les sous-domaines avec le langage commun fixé en étape 3.\n"
+            "- Identifier finalités, règles spécifiques, acteurs et interactions "
+            "entre sous-domaines.\n"
+            "- Ne pas produire de bounded contexts détaillés — c'est l'étape 5.\n"
+            "- Ne pas produire de modèle tactique (entités, agrégats, value objects, "
+            "événements).\n"
             "- Ne pas produire de schéma d'architecture technique."
         ),
     }

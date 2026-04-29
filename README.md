@@ -77,6 +77,7 @@ python src/runner.py --step 2
 
 ## Étape 3 : Établir le langage commun (Ubiquitous Language)
 
+
 ### Objectif
 
 Construire un **langage commun partagé** par toutes les parties prenantes du projet (experts métier, cliniciens, biologistes, IDE, analystes, développeurs, décideurs) afin de supprimer les ambiguïtés, les interprétations divergentes et les traductions permanentes entre vocabulaire métier et vocabulaire technique.
@@ -110,6 +111,48 @@ python src/runner.py --step 3
 ```
 
 > Pré-requis : les livrables des étapes 1 et 2 doivent être présents dans `outputs/etape-1/` et `outputs/etape-2/`.
+
+---
+
+## Étape 4 : Découper le domaine en sous-domaines
+
+### Objectif
+
+Structurer la complexité du domaine global en le **découpant en sous-domaines cohérents**, chacun regroupant un ensemble homogène de problématiques métier. Identifier leurs finalités propres, leurs règles spécifiques et leurs interactions, puis classifier chaque sous-domaine selon sa valeur stratégique :
+
+- **Core** : cœur métier différenciant — investissement et conception sur mesure ;
+- **Supporting** : support nécessaire mais non différenciant ;
+- **Generic** : commodité interchangeable, candidate à des solutions du marché.
+
+Ce découpage clarifie où se situe la valeur métier principale, oriente la priorisation des efforts de conception, l'organisation des équipes et la modularité du futur système.
+
+L'agent IA reçoit en contexte :
+- la demande métier d'origine (`data/input/`) ;
+- les livrables des étapes 1, 2 et 3 (`outputs/etape-1/`, `outputs/etape-2/`, `outputs/etape-3/`).
+
+Aucun bounded context détaillé ni modèle tactique (entités, agrégats, value objects, événements) n'est encore produit — c'est le rôle de l'étape 5 et au-delà.
+
+### Livrables produits
+
+Générés dans `outputs/etape-4/` :
+
+```text
+16_decoupage_sous_domaines.md
+17_classification_strategique.md
+18_finalites_et_regles.md
+19_interactions_sous_domaines.md
+20_synthese_sous_domaines.md
+```
+
+Livrable principal : `20_synthese_sous_domaines.md`.
+
+### Exécution
+
+```bash
+python src/runner.py --step 4
+```
+
+> Pré-requis : les livrables des étapes 1, 2 et 3 doivent être présents dans `outputs/etape-1/`, `outputs/etape-2/` et `outputs/etape-3/`.
 
 ---
 
@@ -173,9 +216,12 @@ python src/runner.py --step 2
 
 # Étape 3 : langage commun (lit auto les livrables étapes 1 + 2)
 python src/runner.py --step 3
+
+# Étape 4 : découpage en sous-domaines (lit auto les livrables étapes 1 + 2 + 3)
+python src/runner.py --step 4
 ```
 
-Variable d'environnement équivalente : `DDD_STEP=3 python src/runner.py`.
+Variable d'environnement équivalente : `DDD_STEP=4 python src/runner.py`.
 
 ---
 
@@ -189,13 +235,16 @@ ATELIER_DDD/
 │   ├── agents_step2.yaml    # agent structuration
 │   ├── tasks_step2.yaml     # 5 tâches étape 2
 │   ├── agents_step3.yaml    # agent langage commun
-│   └── tasks_step3.yaml     # 5 tâches étape 3
+│   ├── tasks_step3.yaml     # 5 tâches étape 3
+│   ├── agents_step4.yaml    # agent stratège sous-domaines
+│   └── tasks_step4.yaml     # 5 tâches étape 4
 ├── data/
 │   └── input/               # demandes métier (entrées)
 ├── outputs/
 │   ├── etape-1/             # livrables étape 1
 │   ├── etape-2/             # livrables étape 2
-│   └── etape-3/             # livrables étape 3
+│   ├── etape-3/             # livrables étape 3
+│   └── etape-4/             # livrables étape 4
 ├── src/
 │   └── runner.py            # orchestrateur multi-étapes
 ├── .env                     # secrets locaux (non versionné)
@@ -207,4 +256,4 @@ ATELIER_DDD/
 
 ## Remarque
 
-Ce projet couvre actuellement les étapes **1**, **2** et **3** de la méthode DDD. Les étapes suivantes — modélisation détaillée (bounded contexts, agrégats, value objects, événements métier), cas d'usage et architecture applicative — ne sont pas encore incluses.
+Ce projet couvre actuellement les étapes **1**, **2**, **3** et **4** de la méthode DDD. Les étapes suivantes — modélisation détaillée (bounded contexts, agrégats, value objects, événements métier), cas d'usage et architecture applicative — ne sont pas encore incluses.
