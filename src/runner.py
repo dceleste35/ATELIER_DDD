@@ -262,6 +262,30 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
+DEFAULT_MISTRAL_MODEL = "mistral/mistral-small-latest"
+
+
+def resolve_mistral_model() -> str:
+    """
+    Vérifie la présence de MISTRAL_API_KEY et retourne le modèle Mistral à utiliser.
+    Le modèle peut être surchargé via LLM_MODEL (doit commencer par 'mistral/').
+    """
+    if not os.getenv("MISTRAL_API_KEY"):
+        raise EnvironmentError(
+            "MISTRAL_API_KEY est absent. Définis-le dans .env à la racine du projet."
+        )
+
+    model_name = os.getenv("LLM_MODEL", DEFAULT_MISTRAL_MODEL)
+
+    if not model_name.startswith("mistral/"):
+        raise ValueError(
+            f"Seul le provider Mistral est supporté. LLM_MODEL doit commencer "
+            f"par 'mistral/' (reçu : '{model_name}')."
+        )
+
+    return model_name
+
+
 def main() -> None:
     os.chdir(BASE_DIR)
     args = parse_args()
@@ -269,13 +293,7 @@ def main() -> None:
 
     load_dotenv(BASE_DIR / ".env")
 
-    api_key = os.getenv("OPENAI_API_KEY")
-    if not api_key:
-        raise EnvironmentError(
-            "OPENAI_API_KEY est absent. Crée un fichier .env à la racine du projet."
-        )
-
-    model_name = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
+    model_name = resolve_mistral_model()
 
     ensure_project_structure()
 
@@ -301,6 +319,7 @@ def main() -> None:
     )
 
     print(f"\n=== Étape {step} : {AGENT_KEY_BY_STEP[step]} ===")
+    print(f"Modèle LLM : {model_name}")
     print(f"Configs : {agents_path.name}, {tasks_path.name}")
     if previous_outputs:
         print(f"Contexte étapes précédentes : {OUTPUT_DIR.relative_to(BASE_DIR)}")
