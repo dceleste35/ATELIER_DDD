@@ -19,6 +19,7 @@ OUTPUT_DIR = BASE_DIR / "outputs"
 AGENT_KEY_BY_STEP: Dict[int, str] = {
     1: "domain_understanding_analyst",
     2: "domain_structuring_analyst",
+    3: "domain_language_curator",
 }
 
 
@@ -142,7 +143,17 @@ LIVRABLES DES ÉTAPES PRÉCÉDENTES
             "(acteurs, responsabilités, règles métier, conflits d'objectifs).\n"
             "- S'appuyer sur les livrables de l'étape 1 fournis ci-dessus.\n"
             "- Ne pas produire de modèle DDD détaillé (entités, agrégats, "
-            "value objects, événements) — c'est l'étape 3.\n"
+            "value objects, événements) — c'est l'étape 4.\n"
+            "- Ne pas produire de schéma d'architecture technique."
+        ),
+        3: (
+            "- Rester strictement dans l'étape 3 : construction du langage commun "
+            "(Ubiquitous Language) partagé par toutes les parties prenantes.\n"
+            "- S'appuyer sur les livrables des étapes 1 et 2 fournis ci-dessus.\n"
+            "- Produire un vocabulaire canonique, supprimer les ambiguïtés et "
+            "aligner métier et technique.\n"
+            "- Ne pas produire de modèle DDD détaillé (bounded contexts, agrégats, "
+            "entités, value objects, événements) — c'est l'étape 4.\n"
             "- Ne pas produire de schéma d'architecture technique."
         ),
     }

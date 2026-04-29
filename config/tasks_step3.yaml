@@ -1,0 +1,101 @@
+construire_glossaire_metier:
+  description: >
+    À partir de la demande métier initiale et des livrables des étapes 1 et 2
+    (concepts métier initiaux, cartographie des acteurs, responsabilités,
+    règles métier), construire un glossaire canonique du domaine des demandes
+    urgentes de dosage anti-Xa. Pour chaque terme, fournir un nom unique et
+    cohérent (forme canonique), une définition courte et précise, les
+    synonymes ou variantes rencontrés dans le corpus, et un exemple d'emploi
+    dans une phrase métier. Couvrir les concepts cliniques, biologiques,
+    organisationnels, temporels et informationnels.
+  expected_output: >
+    Un document Markdown intitulé "Glossaire du langage commun" contenant un
+    tableau triable avec les colonnes suivantes pour chaque terme :
+    - terme canonique ;
+    - définition métier ;
+    - synonymes / variantes observés dans le corpus ;
+    - acteur(s) qui l'emploient ;
+    - exemple d'emploi dans une phrase métier ;
+    - source (étape 1 / étape 2 / corpus initial).
+    Regrouper les termes par catégorie (clinique, biologique, organisationnel,
+    temporel, informationnel) avant le tableau récapitulatif final.
+  output_file: outputs/etape-3/11_glossaire_metier.md
+
+resoudre_ambiguites_terminologiques:
+  description: >
+    Identifier les termes ambigus, les synonymes implicites, les homonymes,
+    les traductions divergentes entre acteurs et les expressions floues
+    présents dans le corpus. Pour chaque cas, proposer un arbitrage
+    terminologique et une justification métier afin de fixer un terme
+    canonique unique dans le langage commun.
+  expected_output: >
+    Un document Markdown intitulé "Ambiguïtés terminologiques résolues"
+    contenant pour chaque ambiguïté :
+    - le ou les termes problématiques ;
+    - le type de problème (synonymie, homonymie, traduction divergente,
+      expression floue, glissement de sens) ;
+    - les acteurs concernés et leurs interprétations divergentes ;
+    - le terme canonique retenu et sa définition ;
+    - la justification métier de l'arbitrage ;
+    - les termes à proscrire ou à éviter.
+    Inclure une section "Points à valider auprès du métier" pour les
+    ambiguïtés qui ne peuvent pas être tranchées sans expert.
+  output_file: outputs/etape-3/12_ambiguites_resolues.md
+
+aligner_metier_et_technique:
+  description: >
+    Établir la correspondance entre le vocabulaire métier (langage commun)
+    et les termes existants ou pressentis du système d'information (SIL,
+    SIH, automates, middleware, prescriptions, comptes-rendus). Identifier
+    les écarts de vocabulaire, les traductions permanentes à supprimer et
+    les zones où le SI utilise un terme différent du métier. Proposer des
+    règles de nommage applicables dans la documentation technique, les
+    user stories et le code à venir.
+  expected_output: >
+    Un document Markdown intitulé "Alignement métier ↔ technique" contenant :
+    - un tableau de correspondance terme métier / terme technique actuel /
+      écart constaté / terme à privilégier ;
+    - la liste des traductions permanentes à supprimer ;
+    - les règles de nommage retenues (camelCase, snake_case, langue,
+      pluriel, etc.) ;
+    - les conventions pour user stories et tests (formulation type
+      "En tant que ..., je ... afin de ...") ;
+    - les recommandations pour la documentation technique.
+  output_file: outputs/etape-3/13_alignement_metier_technique.md
+
+illustrer_usage_langage_commun:
+  description: >
+    Illustrer l'usage du langage commun à travers des exemples concrets
+    issus du domaine : narrations métier (domain narratives), user stories
+    formulées avec le vocabulaire canonique, scénarios d'examen Gherkin
+    (Given / When / Then) et exemples de phrases échangées entre acteurs.
+    Ces exemples doivent rester strictement dans le périmètre des étapes
+    1 et 2 et ne pas anticiper la modélisation DDD détaillée.
+  expected_output: >
+    Un document Markdown intitulé "Exemples d'usage du langage commun"
+    contenant :
+    - 3 à 5 narrations métier courtes utilisant exclusivement le glossaire
+      canonique ;
+    - 5 à 10 user stories au format standard ;
+    - 3 à 5 scénarios Gherkin couvrant les cas critiques du circuit
+      (urgence, qualité pré-analytique, traçabilité, validation
+      biologique) ;
+    - quelques exemples de phrases d'échange entre acteurs (clinicien /
+      biologiste / IDE / SIL) reformulées avec le langage commun.
+  output_file: outputs/etape-3/14_exemples_langage_commun.md
+
+synthetiser_langage_commun:
+  description: >
+    Synthétiser l'ensemble du travail de l'étape 3 en un document de
+    référence du langage commun, exploitable comme socle pour l'étape 4
+    (modélisation DDD : bounded contexts, agrégats, événements). Mettre
+    en évidence les zones d'incertitude restantes et les décisions
+    terminologiques majeures.
+  expected_output: >
+    Un document Markdown intitulé "Synthèse du langage commun" contenant :
+    - une vue d'ensemble du langage commun (catégories, volumétrie) ;
+    - les décisions terminologiques majeures et leur justification ;
+    - le top 10 des termes les plus structurants du domaine ;
+    - les zones de langage encore à clarifier auprès des experts ;
+    - les éléments prêts à être utilisés en étape 4 (modélisation DDD).
+  output_file: outputs/etape-3/15_synthese_langage_commun.md

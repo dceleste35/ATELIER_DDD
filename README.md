@@ -49,7 +49,7 @@ L'agent IA reçoit en contexte :
 - la demande métier d'origine (`data/input/`) ;
 - l'ensemble des livrables produits en étape 1 (`outputs/etape-1/`).
 
-Aucun modèle DDD détaillé (entités, agrégats, value objects, événements) n'est encore produit — c'est le rôle de l'étape 3.
+Aucun modèle DDD détaillé (entités, agrégats, value objects, événements) n'est encore produit — c'est le rôle de l'étape 4.
 
 ### Livrables produits
 
@@ -72,6 +72,44 @@ python src/runner.py --step 2
 ```
 
 > Pré-requis : les livrables de l'étape 1 doivent être présents dans `outputs/etape-1/`.
+
+---
+
+## Étape 3 : Établir le langage commun (Ubiquitous Language)
+
+### Objectif
+
+Construire un **langage commun partagé** par toutes les parties prenantes du projet (experts métier, cliniciens, biologistes, IDE, analystes, développeurs, décideurs) afin de supprimer les ambiguïtés, les interprétations divergentes et les traductions permanentes entre vocabulaire métier et vocabulaire technique.
+
+Chaque concept important du domaine est nommé de manière **claire, unique et cohérente**, puis réutilisé dans les ateliers, la documentation, les user stories, les tests et le code à venir.
+
+L'agent IA reçoit en contexte :
+- la demande métier d'origine (`data/input/`) ;
+- les livrables des étapes 1 et 2 (`outputs/etape-1/`, `outputs/etape-2/`).
+
+Aucun modèle DDD détaillé (bounded contexts, agrégats, entités, value objects, événements) n'est encore produit — c'est le rôle de l'étape 4.
+
+### Livrables produits
+
+Générés dans `outputs/etape-3/` :
+
+```text
+11_glossaire_metier.md
+12_ambiguites_resolues.md
+13_alignement_metier_technique.md
+14_exemples_langage_commun.md
+15_synthese_langage_commun.md
+```
+
+Livrable principal : `15_synthese_langage_commun.md`.
+
+### Exécution
+
+```bash
+python src/runner.py --step 3
+```
+
+> Pré-requis : les livrables des étapes 1 et 2 doivent être présents dans `outputs/etape-1/` et `outputs/etape-2/`.
 
 ---
 
@@ -132,9 +170,12 @@ python src/runner.py --step 1
 
 # Étape 2 : structuration (lit auto les livrables étape 1)
 python src/runner.py --step 2
+
+# Étape 3 : langage commun (lit auto les livrables étapes 1 + 2)
+python src/runner.py --step 3
 ```
 
-Variable d'environnement équivalente : `DDD_STEP=2 python src/runner.py`.
+Variable d'environnement équivalente : `DDD_STEP=3 python src/runner.py`.
 
 ---
 
@@ -146,12 +187,15 @@ ATELIER_DDD/
 │   ├── agents_step1.yaml    # agent compréhension
 │   ├── tasks_step1.yaml     # 5 tâches étape 1
 │   ├── agents_step2.yaml    # agent structuration
-│   └── tasks_step2.yaml     # 5 tâches étape 2
+│   ├── tasks_step2.yaml     # 5 tâches étape 2
+│   ├── agents_step3.yaml    # agent langage commun
+│   └── tasks_step3.yaml     # 5 tâches étape 3
 ├── data/
 │   └── input/               # demandes métier (entrées)
 ├── outputs/
 │   ├── etape-1/             # livrables étape 1
-│   └── etape-2/             # livrables étape 2
+│   ├── etape-2/             # livrables étape 2
+│   └── etape-3/             # livrables étape 3
 ├── src/
 │   └── runner.py            # orchestrateur multi-étapes
 ├── .env                     # secrets locaux (non versionné)
@@ -163,4 +207,4 @@ ATELIER_DDD/
 
 ## Remarque
 
-Ce projet couvre actuellement les étapes **1** et **2** de la méthode DDD. Les étapes suivantes — modélisation détaillée (bounded contexts, agrégats, value objects, événements métier), cas d'usage et architecture applicative — ne sont pas encore incluses.
+Ce projet couvre actuellement les étapes **1**, **2** et **3** de la méthode DDD. Les étapes suivantes — modélisation détaillée (bounded contexts, agrégats, value objects, événements métier), cas d'usage et architecture applicative — ne sont pas encore incluses.
