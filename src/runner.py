@@ -301,7 +301,7 @@ def parse_args() -> argparse.Namespace:
         type=int,
         default=int(os.getenv("DDD_STEP", "1")),
         choices=sorted(AGENT_KEY_BY_STEP.keys()),
-        help="Étape DDD à exécuter (1 = compréhension, 2 = structuration).",
+        help="Étape DDD à exécuter (1 = compréhension, 2 = structuration, ...).",
     )
     return parser.parse_args()
 
@@ -330,6 +330,49 @@ def resolve_mistral_model() -> str:
     return model_name
 
 
+def resolve_model_for_step(step: int) -> str:
+    """
+    Permet d'utiliser un modèle plus puissant sur certaines étapes via .env :
+        LLM_MODEL_STEP1=mistral/mistral-medium-latest
+        LLM_MODEL_STEP4=mistral/mistral-large-latest
+    Sinon, fallback sur LLM_MODEL / DEFAULT_MISTRAL_MODEL.
+    """
+    step_specific = os.getenv(f"LLM_MODEL_STEP{step}")
+    if step_specific:
+        if not step_specific.startswith("mistral/"):
+            raise ValueError(
+                f"LLM_MODEL_STEP{step} doit commencer par 'mistral/' "
+                f"(reçu : '{step_specific}')."
+            )
+        # On vérifie quand même la clé API
+        if not os.getenv("MISTRAL_API_KEY"):
+            raise EnvironmentError(
+                "MISTRAL_API_KEY est absent. Définis-le dans .env à la racine du projet."
+            )
+        return step_specific
+    return resolve_mistral_model()
+
+
+def build_llm(model_name: str) -> LLM:
+    """
+    Construit un LLM CrewAI avec timeout court, retries et max_tokens
+    pour éviter les blocages silencieux côté Mistral.
+
+    Variables d'environnement reconnues :
+      LLM_TIMEOUT       (défaut 180s)
+      LLM_MAX_RETRIES   (défaut 3)
+      LLM_TEMPERATURE   (défaut 0.2)
+      LLM_MAX_TOKENS    (défaut 4096)
+    """
+    return LLM(
+        model=model_name,
+        timeout=float(os.getenv("LLM_TIMEOUT", "180")),
+        max_retries=int(os.getenv("LLM_MAX_RETRIES", "3")),
+        temperature=float(os.getenv("LLM_TEMPERATURE", "0.2")),
+        max_tokens=int(os.getenv("LLM_MAX_TOKENS", "4096")),
+    )
+
+
 def main() -> None:
     os.chdir(BASE_DIR)
     args = parse_args()
@@ -337,7 +380,7 @@ def main() -> None:
 
     load_dotenv(BASE_DIR / ".env")
 
-    model_name = resolve_mistral_model()
+    model_name = resolve_model_for_step(step)
 
     ensure_project_structure()
 
@@ -350,7 +393,7 @@ def main() -> None:
     input_text = load_inputs_from_directory(INPUT_DIR)
     previous_outputs = load_previous_outputs(OUTPUT_DIR, step) if step > 1 else ""
 
-    llm = LLM(model=model_name)
+    llm = build_llm(model_name)
 
     domain_agent = build_agent(agents_config, llm, step)
     tasks = build_tasks(tasks_config, domain_agent, input_text, previous_outputs, step)
@@ -364,6 +407,11 @@ def main() -> None:
 
     print(f"\n=== Étape {step} : {AGENT_KEY_BY_STEP[step]} ===")
     print(f"Modèle LLM : {model_name}")
+    print(
+        f"Timeout : {os.getenv('LLM_TIMEOUT', '180')}s | "
+        f"Retries : {os.getenv('LLM_MAX_RETRIES', '3')} | "
+        f"max_tokens : {os.getenv('LLM_MAX_TOKENS', '4096')}"
+    )
     print(f"Configs : {agents_path.name}, {tasks_path.name}")
     if previous_outputs:
         print(f"Contexte étapes précédentes : {OUTPUT_DIR.relative_to(BASE_DIR)}")
