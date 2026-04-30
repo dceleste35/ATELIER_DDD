@@ -203,6 +203,47 @@ python src/runner.py --step 5
 
 ---
 
+## Étape 6 : Modélisation tactique du cœur stratégique
+
+### Objectif
+
+Traduire la compréhension métier accumulée aux étapes précédentes en un **modèle tactique DDD** opérationnel pour les Bounded Contexts classés **Core** à l'étape 5 (cœur stratégique du domaine). Identifier explicitement, pour chaque BC Core :
+
+- les **agrégats** et leur racine ;
+- les **entités** internes ;
+- les **value objects** ;
+- les **services de domaine** ;
+- les **événements de domaine** ;
+- les **invariants** métier protégés par chaque agrégat racine.
+
+Le périmètre est volontairement restreint aux BC Core (Prescription Médicale, Prélèvement Biologique, Analyse Biologique, Validation Clinique) afin de concentrer l'effort de conception sur la valeur métier différenciante.
+
+L'agent IA reçoit en contexte :
+- la demande métier d'origine (`data/input/`) ;
+- les livrables des étapes 1, 2, 3, 4 et 5.
+
+Aucune architecture technique (couches, repositories, persistance) n'est produite — c'est le rôle des étapes ultérieures.
+
+### Livrable produit
+
+Généré dans `outputs/etape-6/` :
+
+```text
+26_modele_tactique_core.md   # diagramme de classes UML — Mermaid uniquement
+```
+
+Livrable unique : un diagramme Mermaid `classDiagram` avec stéréotypes DDD (`<<Aggregate Root>>`, `<<Entity>>`, `<<Value Object>>`, `<<Domain Service>>`, `<<Domain Event>>`).
+
+### Exécution
+
+```bash
+python src/runner.py --step 6
+```
+
+> Pré-requis : les livrables des étapes 1 à 5 doivent être présents dans leurs dossiers `outputs/etape-N/`.
+
+---
+
 ## Les inputs
 
 Les inputs (demandes utilisateurs) sont à déposer dans le répertoire `data/input/`. Dans cet exemple, vous trouverez la demande d'évolution d'un SI émise par un biologiste.
@@ -269,9 +310,12 @@ python src/runner.py --step 4
 
 # Étape 5 : Bounded Contexts + Context Map (lit auto les livrables étapes 1 à 4)
 python src/runner.py --step 5
+
+# Étape 6 : modèle tactique des BC Core (lit auto les livrables étapes 1 à 5)
+python src/runner.py --step 6
 ```
 
-Variable d'environnement équivalente : `DDD_STEP=5 python src/runner.py`.
+Variable d'environnement équivalente : `DDD_STEP=6 python src/runner.py`.
 
 ---
 
@@ -289,7 +333,9 @@ ATELIER_DDD/
 │   ├── agents_step4.yaml    # agent stratège sous-domaines
 │   ├── tasks_step4.yaml     # 5 tâches étape 4
 │   ├── agents_step5.yaml    # agent designer Bounded Contexts
-│   └── tasks_step5.yaml     # 5 tâches étape 5
+│   ├── tasks_step5.yaml     # 5 tâches étape 5
+│   ├── agents_step6.yaml    # agent modélisateur tactique
+│   └── tasks_step6.yaml     # 1 tâche étape 6 (diagramme UML)
 ├── data/
 │   └── input/               # demandes métier (entrées)
 ├── outputs/
@@ -297,7 +343,8 @@ ATELIER_DDD/
 │   ├── etape-2/             # livrables étape 2
 │   ├── etape-3/             # livrables étape 3
 │   ├── etape-4/             # livrables étape 4
-│   └── etape-5/             # livrables étape 5
+│   ├── etape-5/             # livrables étape 5
+│   └── etape-6/             # livrables étape 6 (modèle tactique Core)
 ├── src/
 │   └── runner.py            # orchestrateur multi-étapes
 ├── .env                     # secrets locaux (non versionné)
@@ -309,4 +356,4 @@ ATELIER_DDD/
 
 ## Remarque
 
-Ce projet couvre actuellement les étapes **1**, **2**, **3**, **4** et **5** de la méthode DDD. Les étapes suivantes — modélisation tactique (agrégats, entités, value objects, événements de domaine, services, repositories), cas d'usage et architecture applicative — ne sont pas encore incluses.
+Ce projet couvre actuellement les étapes **1** à **6** de la méthode DDD (compréhension du domaine, structuration, langage commun, sous-domaines, Bounded Contexts + Context Map, modélisation tactique du cœur stratégique). Les étapes suivantes — cas d'usage détaillés, architecture applicative et choix d'implémentation (repositories, persistance, infrastructure) — ne sont pas encore incluses.

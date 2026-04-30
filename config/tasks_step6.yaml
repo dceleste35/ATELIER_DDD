@@ -1,0 +1,56 @@
+modeliser_core_bounded_contexts:
+  description: >
+    À partir de la demande métier d'origine et des livrables des étapes 1
+    à 5, produire le modèle tactique DDD des Bounded Contexts classés
+    Core (cœur stratégique du domaine — typiquement Prescription
+    Médicale, Prélèvement Biologique, Analyse Biologique, Validation
+    Clinique). Pour chaque Bounded Context Core : identifier les
+    agrégats et leur racine, les entités internes, les value objects,
+    les services de domaine, les événements de domaine et les
+    invariants. Respecter strictement les frontières définies en
+    étape 5 et le langage commun fixé en étape 3. Représenter
+    l'intégralité du modèle dans un UNIQUE diagramme de classes UML au
+    format Mermaid (`classDiagram`). Aucun texte explicatif autour du
+    schéma ; seul le bloc de code Mermaid est attendu.
+  expected_output: >
+    Un fichier Markdown contenant EXCLUSIVEMENT un bloc de code Mermaid
+    (```mermaid ... ```), sans aucune phrase, titre ou paragraphe avant
+    ou après. Le contenu Mermaid doit respecter strictement ces règles :
+
+    - Directive : `classDiagram` sur la première ligne du bloc.
+    - Une classe par concept tactique (agrégat racine, entité, value
+      object, service de domaine, événement de domaine), nommée en
+      PascalCase à partir du langage commun de l'étape 3.
+    - Pour chaque classe, indiquer son stéréotype DDD via la syntaxe
+      Mermaid : `class NomClasse { <<Aggregate Root>> ... }`,
+      `<<Entity>>`, `<<Value Object>>`, `<<Domain Service>>`,
+      `<<Domain Event>>`.
+    - Lister les attributs métier essentiels avec leur type
+      (ex. `+identifiant: IdentifiantPrescription`,
+      `+niveauUrgence: NiveauUrgence`).
+    - Lister les méthodes/comportements métier des entités, racines
+      d'agrégat et services de domaine
+      (ex. `+validerConformite() Resultat`).
+    - Représenter les relations :
+        * composition pour entités appartenant à un agrégat
+          (`AggregateRoot *-- Entity`),
+        * agrégation pour value objects
+          (`AggregateRoot o-- ValueObject`),
+        * association simple pour références entre agrégats par identité
+          (`AggregateA --> IdentifiantB`),
+        * dépendance pour services de domaine
+          (`DomainService ..> AggregateRoot`),
+        * émission d'événement
+          (`AggregateRoot ..> DomainEvent : émet`).
+    - Regrouper visuellement les classes par Bounded Context à l'aide
+      de notes Mermaid (`note for NomClasse "BC : NomBoundedContext"`)
+      ou en préfixant les noms de classes par le BC si la séparation
+      visuelle est insuffisante.
+    - Ajouter des notes Mermaid (`note "..."`) pour expliciter les
+      invariants métier critiques attachés à chaque agrégat racine.
+    - Ne couvrir QUE les Bounded Contexts classés Core en étape 5.
+      Exclure les BC Supporting et Generic.
+
+    Aucune autre sortie n'est acceptée : pas de tableau, pas de texte
+    introductif, pas de commentaire markdown autour du bloc Mermaid.
+  output_file: outputs/etape-6/26_modele_tactique_core.md

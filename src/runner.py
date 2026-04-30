@@ -22,6 +22,7 @@ AGENT_KEY_BY_STEP: Dict[int, str] = {
     3: "domain_language_curator",
     4: "domain_decomposition_strategist",
     5: "bounded_context_designer",
+    6: "tactical_modeler",
 }
 
 
@@ -188,6 +189,25 @@ LIVRABLES DES ÉTAPES PRÉCÉDENTES
             "- Ne pas produire de format technique d'API (JSON, gRPC, Avro...) ; "
             "rester au niveau du contrat métier.\n"
             "- Ne pas produire de schéma d'architecture technique."
+        ),
+        6: (
+            "- Rester strictement dans l'étape 6 : modélisation tactique DDD "
+            "des Bounded Contexts classés Core (cœur stratégique uniquement).\n"
+            "- S'appuyer sur les livrables des étapes 1, 2, 3, 4 et 5 fournis "
+            "ci-dessus.\n"
+            "- Nommer chaque concept (agrégat, entité, value object, service de "
+            "domaine, événement de domaine) avec le langage commun fixé en étape 3.\n"
+            "- Respecter strictement les frontières des Bounded Contexts définies "
+            "en étape 5 ; ne pas créer de concepts qui traverseraient ces frontières.\n"
+            "- Ne couvrir QUE les Bounded Contexts Core ; exclure Supporting et "
+            "Generic.\n"
+            "- Appliquer les règles de conception d'agrégats : cohérence "
+            "transactionnelle, petite taille, références par identité entre "
+            "agrégats, invariants protégés par la racine.\n"
+            "- Distinguer explicitement entité (identité) et value object "
+            "(immuable, défini par ses attributs).\n"
+            "- Ne pas produire d'architecture technique (couches, repositories "
+            "techniques, persistance, infrastructure)."
         ),
     }
 
